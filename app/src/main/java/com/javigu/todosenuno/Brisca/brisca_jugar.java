@@ -252,8 +252,6 @@ public class brisca_jugar extends AppCompatActivity {
                                     cVieja = cartasIA1.get(1);
                                     cartasIA1.add(1, cNueva);
                                     cartasIA1.remove(3);
-                                    cartasIA1.add(2, cVieja);
-                                    cartasIA1.remove(1);
                                     //imagen que vamos a colocar
                                     URL = cartasIA1.get(1).getImagen();
                                     //añadir la imagen en el centro de la mesa
