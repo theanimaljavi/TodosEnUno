@@ -56,7 +56,7 @@ public class brisca_jugar extends AppCompatActivity {
 
     //hacer final de juego miercoles 21/04
     //contador ya es 39
-    //cPalo tiene la carta 39 (al contar el 0 son 40 igual)
+    //cPalo tiene la carta 39 (al contar el 0 son 40 igual).
 
 
     @Override
