@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="arrayAnimales">
+        <item>PERRO</item>
+        <item>GATO</item>
+        <item>GACELA</item>
+        <item>JIRAFA</item>
+        <item>LEON</item>
+        <item>RINOCECRONTE</item>
+        <item>ELEFANTE</item>
+        <item>HIENA</item>
+        <item>HIPOPOTAMO</item>
+    </string-array>
+
+    <string-array name="arrayProfesiones">
+        <item>CAMARERO</item>
+        <item>BOMBERO</item>
+        <item>ELECTRICISTA</item>
+        <item>ESCULTOR</item>
+        <item>MECANICO</item>
+        <item>PROFESOR</item>
+        <item>CARTERO</item>
+        <item>FRUTERO</item>
+        <item>MEDICO</item>
+    </string-array>
+
+    <string-array name="arrayTecnologia">
+        <item>MOVIL</item>
+        <item>ORDENADOR</item>
+        <item>PORTATIL</item>
+        <item>MONITOR</item>
+        <item>IMPRESORA</item>
+        <item>VIDEOCONSOLA</item>
+        <item>TELEVISOR</item>
+        <item>TABLET</item>
+        <item>ROUTER</item>
+    </string-array>
+
+    <string-array name="arrayDeportes">
+        <item>BALONCESTO</item>
+        <item>GOLF</item>
+        <item>CRIQUET</item>
+        <item>ATLETISMO</item>
+        <item>TENIS</item>
+        <item>MOTOGP</item>
+        <item>VOLLEYBOL</item>
+        <item>PINGPONG</item>
+        <item>RUGBY</item>
+    </string-array>
+
+    <string-array name="arrayjuegos">
+        <item></item>
+        <item>TETRIS</item>
+        <item>PACMAN</item>
+        <item>SPACEINVADERS</item>
+        <item>PONG</item>
+        <item>METALSLUG</item>
+        <item>SONIC</item>
+        <item>SUPERMARIO</item>
+        <item>ZELDA</item>
+    </string-array>
+
+    <string-array name="arrayAlimentacion">
+        <item>PASTA</item>
+        <item>VERDURAS</item>
+        <item>ESPECIAS</item>
+        <item>CARNE</item>
+        <item>PESCADO</item>
+        <item>SALSAS</item>
+        <item>REFRESCO</item>
+        <item>AGUA</item>
+        <item>LACTEOS</item>
+    </string-array>
+</resources>

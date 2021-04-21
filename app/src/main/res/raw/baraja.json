@@ -1,0 +1,233 @@
+[ 
+  {
+    "id" : 1,
+    "numero" : 1,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/H4cGY5B/1.png"
+  },
+  {
+    "id" :2,
+    "numero" : 2,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/GCTx1K7/2.png"
+  },
+  {
+    "id": 3,
+    "numero" : 3,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/pPYqtnX/3.png"
+  
+  },{
+  "id": 4,
+    "numero" : 4,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/cTVJVr1/4.png"
+  
+  },{
+  "id": 5,
+    "numero" : 5,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/N6rpgz0/5.png"
+  
+  },{
+  "id": 6,
+    "numero" : 6,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/5hL9yKV/6.png"
+  
+  },{
+  "id": 7,
+    "numero" : 7,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/3pfdXSr/7.png"
+  
+  },{
+  "id": 8,
+    "numero" : 10,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/xGLcv8x/10.png"
+  
+  },{
+  "id": 9,
+    "numero" : 11,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/zPt9qHY/11.png"
+  
+  },{
+  "id": 10,
+    "numero" : 12,
+    "palo" : "oros",
+    "imagen" : "https://i.ibb.co/9VQrTdk/12.png"
+  
+  },{
+  "id": 11,
+    "numero" : 1,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/VwXj7gN/1.png"
+  
+  },{
+  "id": 12,
+    "numero" : 2,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/vJdNFkR/2.png"
+  
+  },{
+  "id": 13,
+    "numero" : 3,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/fntM67d/3.png"
+  
+  },{
+  "id": 14,
+    "numero" : 4,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/QfrLqNk/4.png"
+  
+  },{
+  "id": 15,
+    "numero" : 5,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/42nyr9H/5.png"
+  
+  },{
+  "id": 16,
+    "numero" : 6,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/xJZMbvJ/6.png"
+  
+  },{
+  "id": 17,
+    "numero" : 7,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/sQJTqJz/7.png"
+  
+  },{
+  "id": 18,
+    "numero" : 10,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/HYBJ1XX/10.png"
+  
+  },{
+  "id": 19,
+    "numero" : 11,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/cgyS6Wn/11.png"
+  
+  },{
+  "id": 20,
+    "numero" : 12,
+    "palo" : "espadas",
+    "imagen" : "https://i.ibb.co/87b5BNf/12.png"
+  
+  },{
+  "id": 21,
+    "numero" : 1,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/qs4bSfS/1.png"
+  
+  },{
+  "id": 22,
+    "numero" : 2,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/k6Gg8mv/2.png"
+  
+  },{
+  "id": 23,
+    "numero" : 3,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/4ZHQmYF/3.png"
+  
+  },{
+  "id": 24,
+    "numero" : 4,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/gW3SkNf/4.png"
+  
+  },{
+  "id": 25,
+    "numero" : 5,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/vw4pv9q/5.png"
+  
+  },{
+  "id": 26,
+    "numero" : 6,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/FzPkNVz/6.png"
+  
+  },{
+  "id": 27,
+    "numero" : 7,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/3FCJB5x/7.png"
+  
+  },{
+  "id": 28,
+    "numero" : 10,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/pLSsft7/10.png"
+  
+  },{
+  "id": 29,
+    "numero" : 11,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/sFxQzYH/11.png"
+  
+  },{
+  "id": 30,
+    "numero" : 12,
+    "palo" : "copas",
+    "imagen" : "https://i.ibb.co/PjYffKS/12.png"
+  
+  },{
+  "id": 31,
+    "numero" : 1,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/g3VdtsF/1.png"
+  },{
+  "id": 32,
+    "numero" : 2,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/tBy67cX/2.png"
+  },{
+  "id": 33,
+    "numero" : 3,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/J3tcJjS/3.png"
+  },{
+  "id": 34,
+    "numero" : 4,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/0ZYLWq7/4.png"
+  },{
+  "id": 35,
+    "numero" : 5,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/T8DfNFx/5.png"
+  },{
+  "id": 36,
+    "numero" : 6,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/tXKFxRj/6.png"
+  },{
+  "id": 37,
+    "numero" : 7,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/JQS9WbF/7.png"
+  },{
+  "id": 38,
+    "numero" : 10,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/ZGFmwD8/10.png"
+  },{
+  "id": 39,
+    "numero" : 11,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/Dwhw4yB/11.png"
+  },{
+  "id": 40,
+    "numero" : 12,
+    "palo" : "bastos",
+    "imagen" : "https://i.ibb.co/VgPzG9N/12.png"
+  }
+]

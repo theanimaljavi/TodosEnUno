@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F29C"
+    android:id="@+id/ahorcado_ayuda_fragment"
+    tools:context=".Ahorcado.AyudaFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="163dp"
+        android:layout_height="46dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="¿Cómo Jugar?"
+        android:textSize="25dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="283dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="52dp"
+        android:gravity="center"
+        android:text="Tenemos que adivinar la palabra dependiendo de la temática o la palabra que introdujo otra jugador."
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="291dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="112dp"
+        android:gravity="center"
+        android:text="Para empezar a jugar debemos introducir una letra cualquiera (No servirá repetir letra, carácteres o números)"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="289dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Una vez introducida hay que pulsar el botón de 'Comprobar' para saber si existe esa letra o no en la palabra a adivinar "
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.475"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="295dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="108dp"
+        android:gravity="center"
+        android:text="Nota: Las palabras siempre estarán en castellano (España), no contendrán acentos si los requiriera."
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="282dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:text="El juego termina cuando aciertas la palabra o fallas 7 letras."
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.434"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
+        app:layout_constraintVertical_bias="0.354">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/ibCerrar"
+        android:layout_width="63dp"
+        android:layout_height="61dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.442"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        android:src="@drawable/ic_close_24"
+        android:backgroundTint="#F6F29C"
+        app:layout_constraintVertical_bias="0.261">
+
+    </ImageButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

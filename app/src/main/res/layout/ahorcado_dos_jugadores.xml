@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/ahorcado_dosjugadores"
+    android:background="@drawable/fondo_tematica"
+    tools:context=".Ahorcado.DosJugadores">
+
+    <TextView
+        android:layout_width="410dp"
+        android:layout_height="99dp"
+        android:background="@drawable/ahorcado_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/tvEscribir2jugadores"
+        android:layout_width="327dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="156dp"
+        android:background="@drawable/borde"
+        android:gravity="center"
+        android:text="Escibre cualquier palabra:"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/et2jugadores"
+        android:layout_width="272dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="64dp"
+        android:digits="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
+        android:hint="Introduce una palabra"
+        android:inputType="textCapCharacters"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEscribir2jugadores">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvJugarSolo"
+        android:layout_width="130dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Jugar Solo"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ibElegirTematica"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/ibElegirTematica"
+        android:layout_width="121dp"
+        android:layout_height="117dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="72dp"
+        android:background="@drawable/tematica_juego_foreground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibElegirJuego"
+        android:layout_width="116dp"
+        android:layout_height="114dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="76dp"
+        android:background="@drawable/ds4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tvElegirJuego"
+        android:layout_width="134dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center"
+        android:text="Elegir Juego"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ibElegirJuego"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/btnJugar2jugadores"
+        android:layout_width="140dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="136dp"
+        android:text="Jugar!"
+        android:backgroundTint="#2FC8B6"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et2jugadores">
+
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
