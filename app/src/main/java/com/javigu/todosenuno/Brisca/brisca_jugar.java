@@ -6,22 +6,18 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.javigu.todosenuno.Ahorcado.GestionFotos;
 import com.javigu.todosenuno.ElegirJuego;
 import com.javigu.todosenuno.R;
 import com.squareup.picasso.Picasso;
@@ -37,6 +33,8 @@ import java.util.Random;
 
 public class brisca_jugar extends AppCompatActivity {
 
+    //ERROR: SI PRESIONAMOS MUCHAS VECES EL MISMO BOTON ES POSIBLE QUE DE ERROR
+
     ArrayList<Cartas> cartas;
     ArrayList<Cartas> cartasUsadas;
     ArrayList<Cartas> cartasDesordenadas;
@@ -44,19 +42,21 @@ public class brisca_jugar extends AppCompatActivity {
     ArrayList<Cartas> cartasIA1 = new ArrayList<Cartas>(3);
     ArrayList<Integer> guardarPuntos = new ArrayList<Integer>();
     Puntos puntos;
-    ImageButton cartaMano1,cartaMano2,cartaMano3,cartaIA11,cartaIA12,cartaIA13;
+    ImageButton cartaMano1,cartaMano2,cartaMano3,cartaIA11,cartaIA12,cartaIA13,ibAyuda;
     Cartas c,cPalo,cartaElegidaJugador,cartaElegidaIA;
-    int contador=39, totalPuntosJugador=0,totalPuntosIA=0,gana=0;
+    int contador=7, totalPuntosJugador=0,totalPuntosIA=0,gana=0;
     ImageView ivTrasera,cartaPalo,cartaMesaIA,cartaMesaJugador,cartaBasuraJugador,cartaBasuraIA;
     TextView tvPalo,tvTurno,tvPuntosJugador,tvPuntosIA;
-    boolean turno = false, finRonda = false, mandaIA=false,mandaJugador=false;
+    boolean turno = false, finRonda = false, mandaIA=false,mandaJugador=false,finalizarJuego=false,ultimasCartas=false,juegoTerminado=false;
     String URL;
     static int o=0;
     final Handler handler = new Handler();
+    //*****************TRABAJAR*****************
+    //hacer final de juego miercoles 22/04
+    //con las ultimas cartas, jugador repite cartas (mirar cuando finalizaJuego=true)
+    //LA IA OCULTA MAL SUS CARTAS EN LAS ULTIMAS CARTAS
+    //NO SALE EL TEXTO DE GANADOR
 
-    //hacer final de juego miercoles 21/04
-    //contador ya es 39
-    //cPalo tiene la carta 39 (al contar el 0 son 40 igual).
 
 
     @Override
@@ -68,6 +68,7 @@ public class brisca_jugar extends AppCompatActivity {
         //imagebutton
         cartaMano1 = findViewById(R.id.cartaMano1); cartaMano2 = findViewById(R.id.cartaMano2); cartaMano3 = findViewById(R.id.cartaMano3);
         cartaIA11 = findViewById(R.id.cartaIA1);    cartaIA12 = findViewById(R.id.cartaIA2);    cartaIA13 = findViewById(R.id.cartaIA3);
+        ibAyuda = findViewById(R.id.ibAyudaBrisca);
         //imageview
         cartaPalo = findViewById(R.id.cartaPalo);   cartaMesaIA = findViewById(R.id.cartaMesaIA1); cartaMesaJugador = findViewById(R.id.cartaMesaJugador);
         ivTrasera = findViewById(R.id.ivTrasera);
@@ -75,6 +76,14 @@ public class brisca_jugar extends AppCompatActivity {
         cartaBasuraIA = findViewById(R.id.cartaBasuraIA);           cartaBasuraIA.setVisibility(View.INVISIBLE);
         //TextView
         tvPalo = findViewById(R.id.tvPalo); tvTurno = findViewById(R.id.tvTurno); tvPuntosJugador = findViewById(R.id.tvPuntosJugador); tvPuntosIA = findViewById(R.id.tvPuntosIA);
+
+        ibAyuda.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                brisca_fragment_Ayuda fgAyuda= new brisca_fragment_Ayuda();
+                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentBrisca , fgAyuda).commit();
+            }
+        });
 
         //extraer las cartas del json
         InputStream raw = getResources().openRawResource(R.raw.baraja);
@@ -89,22 +98,24 @@ public class brisca_jugar extends AppCompatActivity {
         //barajear las cartas
         barajar();
         //repartir cartas iniciales y seleccionar al azar quien empieza
-        try {
-            ManoInicial();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        ManoInicial();
 
+        //ACCIÓN DE LA PRIMERA CARTA DEL JUGADOR
         //pondrá la primera carta en la mesa
         // comprobará si es final de ronda, si es mi turno, quien gana, y sumará los puntos acorde a sus valores
         cartaMano1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ERROR: SE AÑADEN MUCHAS MAS CARTAS A LOS ARRAYS, LAS CARTAS SE REPITEN
-
+                //desactivar los botones para que no haya errores al pulsar en dos botones
+                cartaMano1.setEnabled(false);
+                cartaMano2.setEnabled(false);
+                cartaMano3.setEnabled(false);
                 //jugar
                 tvTurno.setVisibility(View.VISIBLE);
-                cartaMano1.setVisibility(View.INVISIBLE);
+                //solo se oculta si no son las 3 últimas cartas
+                if (!ultimasCartas) {
+                    cartaMano1.setVisibility(View.INVISIBLE);
+                }
                 cartaElegidaJugador = cartasJugador.get(0);
                 //imagen que vamos a colocar
                 URL = cartaElegidaJugador.getImagen();
@@ -172,7 +183,7 @@ public class brisca_jugar extends AppCompatActivity {
                             }
                         }
                     };
-                    handler.postDelayed(rIALanzaCarta, 1000);
+                    handler.postDelayed(rIALanzaCarta, 1300);
 
                     //se comprueba el ganador
                     int valorJugador = 0, valorIA = 0;
@@ -197,82 +208,27 @@ public class brisca_jugar extends AppCompatActivity {
                             mandaJugador = false;
                         }
                     };
-                    handler.postDelayed(r, 1000);
+                    handler.postDelayed(r, 1500);
                 }
 
-                //manejador para esperar un tiempo en lo q se sacan nuevas cartas para empezar la ronda
-                final Runnable rSacarCartas = new Runnable() {
-                    public void run() {
-                        //quitar del array de la carta seleccionada
-                        cartasJugador.remove(0);
-                        //sacar jugador
-                        cartasJugador.add(sacarCartas());
-                        //CAMBIAR LAS CARTAS DEL ORDEN DEL ARRAY
-                        //  -La nueva carta añadida al array, tendra que ser la posición 0
-                        //  -Mientras que las otras dos mantendrán su posición (1 y 2)
-                        Cartas cNueva = cartasJugador.get(2);
-                        Cartas cVieja = cartasJugador.get(0);
-                        cartasJugador.add(0, cNueva);
-                        cartasJugador.remove(3);
-                        cartasJugador.add(2, cVieja);
-                        cartasJugador.remove(2);
-
-                        //imagen que vamos a colocar
-                        URL = cartasJugador.get(0).getImagen();
-                        //añadir la imagen en el centro de la mesa
-                        Picasso.with(v.getContext()).load(URL).into(cartaMano1);
-                        //hacer visible de nuevo el ImageView con la nueva carta
-                        cartaMano1.setVisibility(View.VISIBLE);
-
-                        //ocultar la carta de la IA y quitar del array la carta seleccioanda
-                        for (int i = 0; i < cartasIA1.size(); i++) {
-                            if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
-                                //eliminamos la carta de la posicion del array
-                                cartasIA1.remove(i);
-                                //añadimos nueva carta
-                                cartasIA1.add(sacarCartas());
-                                //CAMBIAR LAS CARTAS DEL ORDEN DEL ARRAY
-                                //  -La nueva carta añadida al array, tendra que ser la posición i
-                                //  -Mientras que las otras dos se modificaran dependiendo de donde se eliminó la última carta
-                                if (i == 0) {
-                                    cNueva = cartasIA1.get(2);
-                                    cVieja = cartasIA1.get(0);
-                                    cartasIA1.add(0, cNueva);
-                                    cartasIA1.remove(3);
-                                    cartasIA1.add(2, cVieja);
-                                    cartasIA1.remove(2);
-                                    //imagen que vamos a colocar
-                                    URL = cartasIA1.get(0).getImagen();
-                                    //añadir la imagen en el centro de la mesa
-                                    Picasso.with(v.getContext()).load(URL).into(cartaIA11);
-                                    cartaIA11.setVisibility(View.VISIBLE);
-                                    break;
-                                } else if (i == 1) {
-                                    cNueva = cartasIA1.get(2);
-                                    cVieja = cartasIA1.get(1);
-                                    cartasIA1.add(1, cNueva);
-                                    cartasIA1.remove(3);
-                                    //imagen que vamos a colocar
-                                    URL = cartasIA1.get(1).getImagen();
-                                    //añadir la imagen en el centro de la mesa
-                                    Picasso.with(v.getContext()).load(URL).into(cartaIA12);
-                                    cartaIA12.setVisibility(View.VISIBLE);
-                                    break;
-                                } else if (i == 2) {
-                                    //imagen que vamos a colocar
-                                    URL = cartasIA1.get(2).getImagen();
-                                    //añadir la imagen en el centro de la mesa
-                                    Picasso.with(v.getContext()).load(URL).into(cartaIA13);
-                                    cartaIA13.setVisibility(View.VISIBLE);
-                                    break;
-                                }
-                            }
+                //si no son las ultimas cartas se continuara sacando cartas de forma normal
+                if (!ultimasCartas) {
+                    //manejador para esperar un tiempo en lo q se sacan nuevas cartas para empezar la ronda
+                    final Runnable rSacarCartas = new Runnable() {
+                        public void run() {
+                            nuevaRondaSacarCartas(0);
                         }
-                        cartaElegidaIA = null;
-                        cartaElegidaJugador = null;
-                    }
-                };
-                handler.postDelayed(rSacarCartas, 1500);
+                    };
+                    handler.postDelayed(rSacarCartas, 1300);
+                }else{
+                    //manejador para esperar un tiempo en lo q se sacan las últimas cartas para empezar la ronda
+                    final Runnable rSacarUltimasCartas = new Runnable() {
+                        public void run() {
+                            ultimasCartas(0);
+                        }
+                    };
+                    handler.postDelayed(rSacarUltimasCartas, 1300);
+                }
 
                 //manejador para que se vea correctamente el inicio de la ronda
                 final Runnable rInicioRonda = new Runnable() {
@@ -283,9 +239,859 @@ public class brisca_jugar extends AppCompatActivity {
                     }
                 };
                 handler.postDelayed(rInicioRonda, 1500);
+
+                //manejador para el apartado visual de los botones al inicio de la ronda
+                final Runnable rBotones = new Runnable() {
+                    public void run() {
+                        //activar los botones
+                        cartaMano1.setEnabled(true);
+                        cartaMano2.setEnabled(true);
+                        cartaMano3.setEnabled(true);
+                    }
+                };
+                handler.postDelayed(rBotones, 2500);
+            }
+        });
+
+        //ACCIÓN DE LA SEGUNDA CARTA DEL JUGADOR
+        //pondrá la segunda carta en la mesa
+        // comprobará si es final de ronda, si es mi turno, quien gana, y sumará los puntos acorde a sus valores
+        cartaMano2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //desactivar los botones para que no haya errores al pulsar en dos botones
+                cartaMano1.setEnabled(false);
+                cartaMano2.setEnabled(false);
+                cartaMano3.setEnabled(false);
+                //jugar
+                tvTurno.setVisibility(View.VISIBLE);
+                //solo se oculta si no son las 3 últimas cartas
+                if (!ultimasCartas) {
+                    cartaMano2.setVisibility(View.INVISIBLE);
+                }
+                cartaElegidaJugador = cartasJugador.get(1);
+                //imagen que vamos a colocar
+                URL = cartaElegidaJugador.getImagen();
+                //añadir la imagen en el centro de la mesa
+                Picasso.with(v.getContext()).load(URL).into(cartaMesaJugador);
+                cartaMesaJugador.setVisibility(View.VISIBLE);
+                //comprobar si es final de ronda
+                if (finRonda) {
+                    //la IA ha comenzado la ronda tirando carta
+                    mandaIA = true;
+                    int valorJugador = 0, valorIA = 0;
+                    gana = 0;
+                    //almacenar los valores y pasarlos al objeto puntos
+                    valorJugador = Integer.parseInt(cartaElegidaJugador.getNumero());
+                    guardarPuntos.add(valorJugador);
+                    valorIA = Integer.parseInt(cartaElegidaIA.getNumero());
+                    guardarPuntos.add(valorIA);
+                    puntos = new Puntos(guardarPuntos);
+                    //llamada al método ganador para comprobar quien ha ganado la mano
+                    // 0 = gana jugador
+                    // 1 = gana IA
+                    // 2 = emapte
+                    gana = ganador(valorJugador, valorIA);
+
+                    //manejador para que se vean correctamente las transiciones entre las cartas, los puntos y la nueva ronda
+                    final Runnable rr = new Runnable() {
+                        public void run() {
+                            quienGana(gana);
+
+                        }
+                    };
+                    handler.postDelayed(rr, 1500);
+                    //resetear variable
+                    mandaIA = false;
+                    //el siguiente turno empezara la ronda
+                    finRonda = false;
+                } else {//si no es final de ronda, se muestra la carta del jugador y
+                    // la IA tirará la mejor carta posible entre muchas posibilidades
+                    mandaJugador = true;
+                    //almacenar la carta que deuvelve el algoritmo
+                    cartaElegidaIA = algoritmoIA();
+                    //una espera cuando tira carta la IA, solo la parte visual
+                    final Runnable rIALanzaCarta = new Runnable() {
+                        public void run() {
+                            URL = cartaElegidaIA.getImagen();
+                            tvTurno.setVisibility(View.INVISIBLE);
+                            Picasso.with(v.getContext()).load(URL).into(cartaMesaIA);
+                            cartaMesaIA.setVisibility(View.VISIBLE);
+                            //ocultar la carta de la IA y quitar del array la carta seleccioanda
+                            for (int i = 0; i < cartasIA1.size(); i++) {
+                                if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
+                                    if (i == 0) {
+                                        cartaIA11.setVisibility(View.INVISIBLE);
+                                        break;
+                                    }
+                                    if (i == 1) {
+                                        cartaIA12.setVisibility(View.INVISIBLE);
+                                        break;
+                                    }
+                                    if (i == 2) {
+                                        cartaIA13.setVisibility(View.INVISIBLE);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    handler.postDelayed(rIALanzaCarta, 1300);
+
+                    //se comprueba el ganador
+                    int valorJugador = 0, valorIA = 0;
+                    gana = 0;
+                    //almacenar los valores y pasarlos al objeto puntos
+                    valorJugador = Integer.parseInt(cartaElegidaJugador.getNumero());
+                    guardarPuntos.add(valorJugador);
+                    valorIA = Integer.parseInt(cartaElegidaIA.getNumero());
+                    guardarPuntos.add(valorIA);
+                    puntos = new Puntos(guardarPuntos);
+                    //llamada al método ganador para comprobar quien ha ganado la mano
+                    // 0 = gana jugador
+                    // 1 = gana IA
+                    // 2 = emapte
+                    gana = ganador(valorJugador, valorIA);
+
+                    //manejador para que se vean correctamente las transiciones entre las cartas, los puntos y la nueva ronda
+                    final Runnable r = new Runnable() {
+                        public void run() {
+                            quienGana(gana);
+                            //resetear variable
+                            mandaJugador = false;
+                        }
+                    };
+                    handler.postDelayed(r, 1500);
+                }
+
+                //si no son las ultimas cartas se continuara sacando cartas de forma normal
+                if (!ultimasCartas) {
+                    //manejador para esperar un tiempo en lo q se sacan nuevas cartas para empezar la ronda
+                    final Runnable rSacarCartas = new Runnable() {
+                        public void run() {
+                            nuevaRondaSacarCartas(1);
+                        }
+                    };
+                    handler.postDelayed(rSacarCartas, 1300);
+                }else{
+                    //manejador para esperar un tiempo en lo q se sacan las últimas cartas para empezar la ronda
+                    final Runnable rSacarUltimasCartas = new Runnable() {
+                        public void run() {
+                            ultimasCartas(1);
+                        }
+                    };
+                    handler.postDelayed(rSacarUltimasCartas, 1300);
+                }
+
+                //manejador para que se vea correctamente el inicio de la ronda
+                final Runnable rInicioRonda = new Runnable() {
+                    public void run() {
+                        //empezar de nuevo la ronda
+                        empezarRonda(gana);
+                        guardarPuntos.removeAll(guardarPuntos);
+                    }
+                };
+                handler.postDelayed(rInicioRonda, 1700);
+
+                //manejador para el apartado visual de los botones al inicio de la ronda
+                final Runnable rBotones = new Runnable() {
+                    public void run() {
+                        //activar los botones
+                        cartaMano1.setEnabled(true);
+                        cartaMano2.setEnabled(true);
+                        cartaMano3.setEnabled(true);
+                    }
+                };
+                handler.postDelayed(rBotones, 2500);
+            }
+        });
+
+        //ACCIÓN DE LA TERCERA CARTA DEL JUGADOR
+        //pondrá la tercera carta en la mesa
+        // comprobará si es final de ronda, si es mi turno, quien gana, y sumará los puntos acorde a sus valores
+        cartaMano3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //desactivar los botones para que no haya errores al pulsar en dos botones
+                cartaMano1.setEnabled(false);
+                cartaMano2.setEnabled(false);
+                cartaMano3.setEnabled(false);
+                //jugar
+                tvTurno.setVisibility(View.VISIBLE);
+                //solo se oculta si no son las 3 últimas cartas
+                if (!ultimasCartas) {
+                    cartaMano3.setVisibility(View.INVISIBLE);
+                }
+                cartaElegidaJugador = cartasJugador.get(2);
+                //imagen que vamos a colocar
+                URL = cartaElegidaJugador.getImagen();
+                //añadir la imagen en el centro de la mesa
+                Picasso.with(v.getContext()).load(URL).into(cartaMesaJugador);
+                cartaMesaJugador.setVisibility(View.VISIBLE);
+                //comprobar si es final de ronda
+                if (finRonda) {
+                    //la IA ha comenzado la ronda tirando carta
+                    mandaIA = true;
+                    int valorJugador = 0, valorIA = 0;
+                    gana = 0;
+                    //almacenar los valores y pasarlos al objeto puntos
+                    valorJugador = Integer.parseInt(cartaElegidaJugador.getNumero());
+                    guardarPuntos.add(valorJugador);
+                    valorIA = Integer.parseInt(cartaElegidaIA.getNumero());
+                    guardarPuntos.add(valorIA);
+                    puntos = new Puntos(guardarPuntos);
+                    //llamada al método ganador para comprobar quien ha ganado la mano
+                    // 0 = gana jugador
+                    // 1 = gana IA
+                    // 2 = emapte
+                    gana = ganador(valorJugador, valorIA);
+
+                    //manejador para que se vean correctamente las transiciones entre las cartas, los puntos y la nueva ronda
+                    final Runnable rr = new Runnable() {
+                        public void run() {
+                            quienGana(gana);
+
+                        }
+                    };
+                    handler.postDelayed(rr, 1500);
+                    //resetear variable
+                    mandaIA = false;
+                    //el siguiente turno empezara la ronda
+                    finRonda = false;
+                } else {//si no es final de ronda, se muestra la carta del jugador y
+                    // la IA tirará la mejor carta posible entre muchas posibilidades
+                    mandaJugador = true;
+                    //almacenar la carta que deuvelve el algoritmo
+                    cartaElegidaIA = algoritmoIA();
+                    //una espera cuando tira carta la IA, solo la parte visual
+                    final Runnable rIALanzaCarta = new Runnable() {
+                        public void run() {
+                            URL = cartaElegidaIA.getImagen();
+                            tvTurno.setVisibility(View.INVISIBLE);
+                            Picasso.with(v.getContext()).load(URL).into(cartaMesaIA);
+                            cartaMesaIA.setVisibility(View.VISIBLE);
+                            //ocultar la carta de la IA y quitar del array la carta seleccioanda
+                            for (int i = 0; i < cartasIA1.size(); i++) {
+                                if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
+                                    if (i == 0) {
+                                        cartaIA11.setVisibility(View.INVISIBLE);
+                                        break;
+                                    }
+                                    if (i == 1) {
+                                        cartaIA12.setVisibility(View.INVISIBLE);
+                                        break;
+                                    }
+                                    if (i == 2) {
+                                        cartaIA13.setVisibility(View.INVISIBLE);
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    };
+                    handler.postDelayed(rIALanzaCarta, 1300);
+
+                    //se comprueba el ganador
+                    int valorJugador = 0, valorIA = 0;
+                    gana = 0;
+                    //almacenar los valores y pasarlos al objeto puntos
+                    valorJugador = Integer.parseInt(cartaElegidaJugador.getNumero());
+                    guardarPuntos.add(valorJugador);
+                    valorIA = Integer.parseInt(cartaElegidaIA.getNumero());
+                    guardarPuntos.add(valorIA);
+                    puntos = new Puntos(guardarPuntos);
+                    //llamada al método ganador para comprobar quien ha ganado la mano
+                    // 0 = gana jugador
+                    // 1 = gana IA
+                    // 2 = emapte
+                    gana = ganador(valorJugador, valorIA);
+
+                    //manejador para que se vean correctamente las transiciones entre las cartas, los puntos y la nueva ronda
+                    final Runnable r = new Runnable() {
+                        public void run() {
+                            quienGana(gana);
+                            //resetear variable
+                            mandaJugador = false;
+                        }
+                    };
+                    handler.postDelayed(r, 1500);
+                }
+
+                //si no son las ultimas cartas se continuara sacando cartas de forma normal
+                if (!ultimasCartas) {
+                    //manejador para esperar un tiempo en lo q se sacan nuevas cartas para empezar la ronda
+                    final Runnable rSacarCartas = new Runnable() {
+                        public void run() {
+                            nuevaRondaSacarCartas(2);
+                        }
+                    };
+                    handler.postDelayed(rSacarCartas, 1300);
+                }else{
+                    //manejador para esperar un tiempo en lo q se sacan las últimas cartas para empezar la ronda
+                    final Runnable rSacarUltimasCartas = new Runnable() {
+                        public void run() {
+                            ultimasCartas(2);
+                        }
+                    };
+                    handler.postDelayed(rSacarUltimasCartas, 1300);
+
+                }
+
+                //si no hay cartas en la mesa no se llamará al método de empezar ronda
+                if (!juegoTerminado) {
+                    //manejador para que se vea correctamente el inicio de la ronda
+                    final Runnable rInicioRonda = new Runnable() {
+                        public void run() {
+                            //empezar de nuevo la ronda
+                            empezarRonda(gana);
+                            guardarPuntos.removeAll(guardarPuntos);
+                        }
+                    };
+                    handler.postDelayed(rInicioRonda, 1700);
+                }else{
+                    //llamada al fragment de resultado, si el jugador elige "seguir jugando"
+                    // empezará de nuevo el juego pero habrá un conteo global de los puntos en total
+                    brisca_fragment_Ayuda fgBriscaResultado = new brisca_fragment_Ayuda();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentBrisca, fgBriscaResultado).addToBackStack(null).commit();
+                }
+                //manejador para el apartado visual de los botones al inicio de la ronda
+                final Runnable rBotones = new Runnable() {
+                    public void run() {
+                        //activar los botones
+                        cartaMano1.setEnabled(true);
+                        cartaMano2.setEnabled(true);
+                        cartaMano3.setEnabled(true);
+                    }
+                };
+                handler.postDelayed(rBotones, 6500);
             }
         });
 }
+
+
+    //método para saber si gana la IA o el jugador
+    public int quienGana(int gana) {
+        //quitar las cartas de la mesa
+        cartaMesaIA.setVisibility(View.INVISIBLE);
+        cartaMesaJugador.setVisibility(View.INVISIBLE);
+        if (gana == 0) {
+            //calcular si los valores contienen puntos, sumarlos y actualizar los puntos
+            totalPuntosJugador += puntos.calcularPuntos();
+            tvPuntosJugador.setText("Puntos: " + totalPuntosJugador);
+            //quien gana le toca de nuevo sacar
+            turno = true;
+            cartaBasuraJugador.setVisibility(View.VISIBLE);
+            //mano terminada por la IA, se empieza de nuevo, turno de la IA
+            finRonda = false;
+        } else if (gana == 1) {
+            //calcular si los valores contienen puntos, sumarlos y actualizar los puntos
+            totalPuntosIA += puntos.calcularPuntos();
+            tvPuntosIA.setText("Puntos: " + totalPuntosIA);
+            //quien gana le toca de nuevo sacar
+            turno = false;
+            cartaBasuraIA.setVisibility(View.VISIBLE);
+            //mano terminada por el jugador, se empieza de nuevo, turno del jugador
+            finRonda = true;
+        }
+        return gana;
+    }
+
+    //metodo para saber quien empieza la ronda
+    // jugador 0
+    // IA 1
+    // si empieza la IA, tirará una carta de forma aleatoria en la mesa
+    // MEJORAR: QUE LA IA NO TIRE DE FORMA ALEATORIA, IMPLEMENTAR ALGUNAS POSIBILIDADES
+    public void empezarRonda(int gana){
+        if (gana==0){
+            //si es 0 empieza el jugador con que no será final de ronda
+            finRonda=false;
+            tvTurno.setVisibility(View.VISIBLE);
+            cartaMesaIA.setVisibility(View.INVISIBLE);
+        }else if (gana==1){
+            //empieza IA, será final de ronda
+            tvTurno.setVisibility(View.INVISIBLE);
+
+            //manejador para que se vea correctamente entre ver la nueva carta de la IA y la que lanza en caso de ganar la mano
+            final Runnable rInicioIA = new Runnable() {
+                public void run() {
+                    Random r = new Random();
+                    int numeroRandomInicialIA = r.nextInt(3);
+                    // desactivar la imagen que vamos a mostrar
+                    if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
+                    if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
+                    if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
+                    // coger una carta random y ponerla en la mesa
+                    cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
+                    URL = cartaElegidaIA.getImagen();
+                    Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                    cartaMesaIA.setVisibility(View.VISIBLE);
+                    tvTurno.setVisibility(View.VISIBLE);
+                }
+            };
+            handler.postDelayed(rInicioIA, 1500);
+
+            // el siguiente turno será final de ronda
+            finRonda = true;
+        }
+    }
+
+    //metodo para desordenar las cartas
+    public void barajar() {
+        //inicar array
+        cartasDesordenadas = new ArrayList<Cartas>(cartas.size());
+        //introducir la primera carta
+        int random = (int)(Math.random()*40);
+        Cartas c = cartas.get(random);
+        cartasDesordenadas.add(c);
+
+        //bucle para introducir las cartas
+        for (int i = 0; cartasDesordenadas.size() < 40; i++) {
+            //obtener carta random del mazo original
+            random = (int) (Math.random() * 40);
+            c = cartas.get(random);
+            String idCarta = c.getId();
+            //bucle para comprobar is ya existe la carta
+            for (int j = 0; j < cartasDesordenadas.size(); j++) {
+                String idCartasDesordenadas = cartasDesordenadas.get(j).getId();
+                //si los id's coinciden, dejamos la carta a null y buscamos otro random
+                if (idCarta.equalsIgnoreCase(idCartasDesordenadas)) {
+                    c= null;
+                    break;
+                }
+            }
+            //añadir la carta si es distinto de null
+            if (c!=null){
+                cartasDesordenadas.add(c);
+            }
+        }
+    }
+
+    //método para manejar las ultimas cartas sobre la mesa, ya no se sacaran mas cartas
+    public void ultimasCartas(int cartaJugador){
+        //si "o" es 3, se comprueban los puntos y se muestra el ganador, el juego habría finalizado
+        if (o!=3) {
+            //ULTIMAS CARTAS JUGADOR
+            //quitar del array de la carta seleccionada
+            cartasJugador.remove(cartaJugador);
+            //dependiendo del número que se le pasa, eliminamos el boton
+            if (o==0){
+                cartaMano3.setVisibility(View.GONE);
+                //carta 3 a la segunda posicion
+                URL = cartasJugador.get(1).getImagen();
+                Picasso.with(getApplicationContext()).load(URL).into(cartaMano2);
+                //carta 2 a la primera posicion
+                URL = cartasJugador.get(0).getImagen();
+                Picasso.with(getApplicationContext()).load(URL).into(cartaMano1);
+
+            }
+            else if (o==1){
+                cartaMano2.setVisibility(View.GONE);
+                //carta 2 a la primera posicion
+                URL = cartasJugador.get(0).getImagen();
+                Picasso.with(getApplicationContext()).load(URL).into(cartaMano1);
+            }
+            else if (o==2){ cartaMano1.setVisibility(View.GONE);}
+
+            //ULTIMAS CARTAS IA
+            //deshabilitar la carta de la IA dependiendo de su posición
+            for (int i = 0; i < cartasIA1.size(); i++) {
+                if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
+                    //eliminamos la carta de la posicion del array
+                    cartasIA1.remove(i);
+                    if (o==0){
+                        cartaIA13.setVisibility(View.GONE);
+                        //carta 3 a la segunda posicion
+                        URL = cartasIA1.get(1).getImagen();
+                        Picasso.with(getApplicationContext()).load(URL).into(cartaIA12);
+                        //carta 2 a la primera posicion
+                        URL = cartasIA1.get(0).getImagen();
+                        Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
+                    } else if (o==1){
+                        cartaIA12.setVisibility(View.GONE);
+                        //carta 2 a la primera posicion
+                        URL = cartasIA1.get(0).getImagen();
+                        Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
+                    }else if (o==2){
+                        cartaIA11.setVisibility(View.GONE);
+                        //ya no quedan cartas, activar chivato
+                        juegoTerminado=true;
+                    }
+                }
+            }
+        }
+        //sumar 1 a la variable o
+        o++;
+    }
+
+    //método para sacar nuevas cartas
+    public Cartas sacarCartas() {
+        if (contador >0) {
+            contador--;
+            //cuando llegue a 0, activamos chivato
+            if (contador==1){
+                finalizarJuego=true;
+            }
+            return cartasDesordenadas.get(contador);
+        }else {
+            throw new IllegalArgumentException("No quedan cartas.");
+        }
+    }
+
+
+    //método para cuando se inicia una nueva ronda se reparten las cartas
+    public void nuevaRondaSacarCartas(int botonManoJugador){
+        Cartas cNueva = null;
+        if (!finalizarJuego) {
+            //quitar del array de la carta seleccionada
+            cartasJugador.remove(botonManoJugador);
+            //sacar carta jugador
+            cartasJugador.add(sacarCartas());
+            //dependiendo del número que se le pasa, cambiaremos la cartaMano dependiendo del mismo
+            if (botonManoJugador==0) {
+                cNueva = cartasJugador.get(2);
+                cartasJugador.add(botonManoJugador,cNueva);
+                cartasJugador.remove(3);
+                //imagen que vamos a colocar
+                URL = cartasJugador.get(botonManoJugador).getImagen();
+                //añadir la imagen en el centro de la mesa
+                Picasso.with(this).load(URL).into(cartaMano1);
+                //hacer visible de nuevo el ImageView con la nueva carta
+                cartaMano1.setVisibility(View.VISIBLE);
+            }else if (botonManoJugador==1) {
+                cNueva = cartasJugador.get(2);
+                cartasJugador.add(botonManoJugador,cNueva);
+                cartasJugador.remove(3);
+                //imagen que vamos a colocar
+                URL = cartasJugador.get(botonManoJugador).getImagen();
+                //añadir la imagen en el centro de la mesa
+                Picasso.with(this).load(URL).into(cartaMano2);
+                //hacer visible de nuevo el ImageView con la nueva carta
+                cartaMano2.setVisibility(View.VISIBLE);
+            }else if (botonManoJugador==2) {
+                //imagen que vamos a colocar
+                URL = cartasJugador.get(botonManoJugador).getImagen();
+                //añadir la imagen en el centro de la mesa
+                Picasso.with(this).load(URL).into(cartaMano3);
+                //hacer visible de nuevo el ImageView con la nueva carta
+                cartaMano3.setVisibility(View.VISIBLE);
+            }
+
+            //ocultar la carta de la IA y quitar del array la carta seleccioanda
+            for (int i = 0; i < cartasIA1.size(); i++) {
+                if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
+                    //eliminamos la carta de la posicion del array
+                    cartasIA1.remove(i);
+                    //añadimos nueva carta
+                    cartasIA1.add(sacarCartas());
+                    //CAMBIAR LAS CARTAS DEL ORDEN DEL ARRAY
+                    //  -La nueva carta añadida al array, tendra que ser la posición i
+                    //  -Mientras que las otras dos se modificaran dependiendo de donde se eliminó la última carta
+                    if (i == 0) {
+                        cNueva = cartasIA1.get(2);
+                        cartasIA1.add(0, cNueva);
+                        cartasIA1.remove(3);
+                        //imagen que vamos a colocar
+                        URL = cartasIA1.get(0).getImagen();
+                        //añadir la imagen en el centro de la mesa
+                        Picasso.with(this).load(URL).into(cartaIA11);
+                        cartaIA11.setVisibility(View.VISIBLE);
+                        break;
+                    } else if (i == 1) {
+                        cNueva = cartasIA1.get(2);
+                        cartasIA1.add(1, cNueva);
+                        cartasIA1.remove(3);
+                        //imagen que vamos a colocar
+                        URL = cartasIA1.get(1).getImagen();
+                        //añadir la imagen en el centro de la mesa
+                        Picasso.with(this).load(URL).into(cartaIA12);
+                        cartaIA12.setVisibility(View.VISIBLE);
+                        break;
+                    } else if (i == 2) {
+                        //imagen que vamos a colocar
+                        URL = cartasIA1.get(2).getImagen();
+                        //añadir la imagen en el centro de la mesa
+                        Picasso.with(this).load(URL).into(cartaIA13);
+                        cartaIA13.setVisibility(View.VISIBLE);
+                        break;
+                    }
+                }
+            }
+            //si finalizarJuego=true
+            // se repartirá la carta 0 al ganador y la carta 40 al perdedor
+        }else if (finalizarJuego){
+            //dependiendo del ganador se repartirán las últimas cartas
+            // jugador 0
+            // IA 1
+            //quitar carta Palo de la mesa
+            cartaPalo.setVisibility(View.INVISIBLE);
+            //quitar carta horizontal de la mesa
+            ivTrasera.setVisibility(View.INVISIBLE);
+            //quitar del array de la carta seleccionada
+            cartasJugador.remove(botonManoJugador);
+            if (gana==0) {
+                //sacar carta jugador número 0
+                cartasJugador.add(cartasDesordenadas.get(0));
+                //dependiendo del número que se le pasa, cambiaremos la cartaMano dependiendo del mismo
+                if (botonManoJugador==0) {
+                    cNueva = cartasJugador.get(2);
+                    cartasJugador.add(botonManoJugador,cNueva);
+                    cartasJugador.remove(3);
+                    //imagen que vamos a colocar
+                    URL = cartasJugador.get(botonManoJugador).getImagen();
+                    //añadir la imagen en el centro de la mesa
+                    Picasso.with(this).load(URL).into(cartaMano1);
+                    //hacer visible de nuevo el ImageView con la nueva carta
+                    cartaMano1.setVisibility(View.VISIBLE);
+                }else if (botonManoJugador==1) {
+                    cNueva = cartasJugador.get(2);
+                    cartasJugador.add(botonManoJugador,cNueva);
+                    cartasJugador.remove(3);
+                    //imagen que vamos a colocar
+                    URL = cartasJugador.get(botonManoJugador).getImagen();
+                    //añadir la imagen en el centro de la mesa
+                    Picasso.with(this).load(URL).into(cartaMano2);
+                    //hacer visible de nuevo el ImageView con la nueva carta
+                    cartaMano2.setVisibility(View.VISIBLE);
+                }else if (botonManoJugador==2) {
+                    //imagen que vamos a colocar
+                    URL = cartasJugador.get(botonManoJugador).getImagen();
+                    //añadir la imagen en el centro de la mesa
+                    Picasso.with(this).load(URL).into(cartaMano3);
+                    //hacer visible de nuevo el ImageView con la nueva carta
+                    cartaMano3.setVisibility(View.VISIBLE);
+                }
+                //ahora se le asignará a la IA la carta palo
+                //ocultar la carta de la IA y quitar del array la carta seleccioanda
+                for (int i = 0; i < cartasIA1.size(); i++) {
+                    if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
+                        //eliminamos la carta de la posicion del array
+                        cartasIA1.remove(i);
+                        //añadimos nueva carta
+                        cartasIA1.add(cPalo);
+                        //CAMBIAR LAS CARTAS DEL ORDEN DEL ARRAY
+                        //  -La nueva carta añadida al array, tendra que ser la posición i
+                        //  -Mientras que las otras dos se modificaran dependiendo de donde se eliminó la última carta
+                        if (i == 0) {
+                            cNueva = cartasIA1.get(2);
+                            cartasIA1.add(0, cNueva);
+                            cartasIA1.remove(3);
+                            //imagen que vamos a colocar
+                            URL = cartasIA1.get(0).getImagen();
+                            //añadir la imagen en el centro de la mesa
+                            Picasso.with(this).load(URL).into(cartaIA11);
+                            cartaIA11.setVisibility(View.VISIBLE);
+                            break;
+                        } else if (i == 1) {
+                            cNueva = cartasIA1.get(2);
+                            cartasIA1.add(1, cNueva);
+                            cartasIA1.remove(3);
+                            //imagen que vamos a colocar
+                            URL = cartasIA1.get(1).getImagen();
+                            //añadir la imagen en el centro de la mesa
+                            Picasso.with(this).load(URL).into(cartaIA12);
+                            cartaIA12.setVisibility(View.VISIBLE);
+                            break;
+                        } else if (i == 2) {
+                            //imagen que vamos a colocar
+                            URL = cartasIA1.get(2).getImagen();
+                            //añadir la imagen en el centro de la mesa
+                            Picasso.with(this).load(URL).into(cartaIA13);
+                            cartaIA13.setVisibility(View.VISIBLE);
+                            break;
+                        }
+                    }
+                }
+            }else if (gana==1){
+                //el jugador tendrá la carta Palo
+                cartasJugador.add(cPalo);
+                //dependiendo del número que se le pasa, cambiaremos la cartaMano dependiendo del mismo
+                if (botonManoJugador==0) {
+                    cNueva = cartasJugador.get(2);
+                    cartasJugador.add(0, cNueva);
+                    cartasJugador.remove(3);
+                    //imagen que vamos a colocar
+                    URL = cartasJugador.get(botonManoJugador).getImagen();
+                    //añadir la imagen en el centro de la mesa
+                    Picasso.with(this).load(URL).into(cartaMano1);
+                    //hacer visible de nuevo el ImageView con la nueva carta
+                    cartaMano1.setVisibility(View.VISIBLE);
+                }else if (botonManoJugador==1) {
+                    cNueva = cartasJugador.get(2);
+                    cartasJugador.add(1, cNueva);
+                    cartasJugador.remove(3);
+                    //imagen que vamos a colocar
+                    URL = cartasJugador.get(botonManoJugador).getImagen();
+                    //añadir la imagen en el centro de la mesa
+                    Picasso.with(this).load(URL).into(cartaMano2);
+                    //hacer visible de nuevo el ImageView con la nueva carta
+                    cartaMano2.setVisibility(View.VISIBLE);
+                }else if (botonManoJugador==2) {
+                    //imagen que vamos a colocar
+                    URL = cartasJugador.get(botonManoJugador).getImagen();
+                    //añadir la imagen en el centro de la mesa
+                    Picasso.with(this).load(URL).into(cartaMano3);
+                    //hacer visible de nuevo el ImageView con la nueva carta
+                    cartaMano3.setVisibility(View.VISIBLE);
+                }
+                //ahora se le asignará a la IA la carta número 0
+                //ocultar la carta de la IA y quitar del array la carta seleccioanda
+                for (int i = 0; i < cartasIA1.size(); i++) {
+                    if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
+                        //eliminamos la carta de la posicion del array
+                        cartasIA1.remove(i);
+                        //añadimos nueva carta
+                        cartasIA1.add(cartasDesordenadas.get(0));
+                        //CAMBIAR LAS CARTAS DEL ORDEN DEL ARRAY
+                        //  -La nueva carta añadida al array, tendra que ser la posición i
+                        //  -Mientras que las otras dos se modificaran dependiendo de donde se eliminó la última carta
+                        if (i == 0) {
+                            cNueva = cartasIA1.get(2);
+                            cartasIA1.add(0, cNueva);
+                            cartasIA1.remove(3);
+                            //imagen que vamos a colocar
+                            URL = cartasIA1.get(0).getImagen();
+                            //añadir la imagen en el centro de la mesa
+                            Picasso.with(this).load(URL).into(cartaIA11);
+                            cartaIA11.setVisibility(View.VISIBLE);
+                            break;
+                        } else if (i == 1) {
+                            cNueva = cartasIA1.get(2);
+                            cartasIA1.add(1, cNueva);
+                            cartasIA1.remove(3);
+                            //imagen que vamos a colocar
+                            URL = cartasIA1.get(1).getImagen();
+                            //añadir la imagen en el centro de la mesa
+                            Picasso.with(this).load(URL).into(cartaIA12);
+                            cartaIA12.setVisibility(View.VISIBLE);
+                            break;
+                        } else if (i == 2) {
+                            //imagen que vamos a colocar
+                            URL = cartasIA1.get(2).getImagen();
+                            //añadir la imagen en el centro de la mesa
+                            Picasso.with(this).load(URL).into(cartaIA13);
+                            cartaIA13.setVisibility(View.VISIBLE);
+                            break;
+                        }
+                    }
+                }
+            }
+            //activamos chivato para el métedo que manejará las últimas cartas
+            ultimasCartas=true;
+        }
+        cartaElegidaIA = null;
+        cartaElegidaJugador = null;
+    }
+
+    //muestra las cartas iniciales, elige el palo y quien empieza
+    private void ManoInicial(){
+        //carta que dara cual es el palo que manda sobre el juego
+        c = cartasDesordenadas.get(39);
+        URL = c.getImagen();
+        Picasso.with(this).load(URL).into(cartaPalo);
+        //guardar la carta palo para repartirla al final
+        cPalo = c;
+        tvPalo.setText(cPalo.getPalo().toUpperCase());
+        String URL;
+        //almacenamos en arrays las cartas iniciales
+        //de la IA no tendra imagen, puesto que el jugador no sabrá cuales tiene
+        cartasJugador.add(sacarCartas());
+        URL = cartasJugador.get(0).getImagen();
+        Picasso.with(this).load(URL).into(cartaMano1);
+
+        cartasIA1.add(sacarCartas());
+        //comentar: pruebas
+        URL = cartasIA1.get(0).getImagen();
+        Picasso.with(this).load(URL).into(cartaIA11);
+
+        cartasJugador.add(sacarCartas());
+        URL = cartasJugador.get(1).getImagen();
+        Picasso.with(this).load(URL).into(cartaMano2);
+
+        cartasIA1.add(sacarCartas());
+        //comentar: pruebas
+        URL = cartasIA1.get(1).getImagen();
+        Picasso.with(this).load(URL).into(cartaIA12);
+
+        cartasJugador.add(sacarCartas());
+        URL = cartasJugador.get(2).getImagen();
+        Picasso.with(this).load(URL).into(cartaMano3);
+
+        cartasIA1.add(sacarCartas());
+        //comentar: pruebas
+        URL = cartasIA1.get(2).getImagen();
+        Picasso.with(this).load(URL).into(cartaIA13);
+
+        //manejador para que se vean correctamente las transiciones entre las cartas
+        final Runnable rr = new Runnable() {
+            public void run() {
+                //seleccionar quien empieza la partida
+                Random r = new Random();
+                int i = r.nextInt(2);
+                int numeroRandomInicialIA = r.nextInt(3);
+                String URL="";
+                //Si es 1, sale IA, si es 2, sale el jugador
+                if (i==1){
+                    // desactivar la imagen que vamos a mostrar
+                    if(numeroRandomInicialIA==0)cartaIA11.setVisibility(View.INVISIBLE);
+                    if(numeroRandomInicialIA==1)cartaIA12.setVisibility(View.INVISIBLE);
+                    if(numeroRandomInicialIA==2)cartaIA13.setVisibility(View.INVISIBLE);
+                    // coger una carta random y ponerla en la mesa
+                    cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
+                    URL = cartaElegidaIA.getImagen();
+                    Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                    // el siguiente turno será final de ronda
+                    finRonda=true;
+                    tvTurno.setVisibility(View.VISIBLE);
+                }
+            }
+        };
+        handler.postDelayed(rr, 1500);
+        }
+
+    //MENU
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //Inflador del menú
+        MenuInflater infladorMenu = getMenuInflater();
+        infladorMenu.inflate(R.menu.menu_contextual, menu);
+        //Asociar el menu al menu_busqueda.xml
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        switch (item.getItemId()){
+
+            //ELEGIRJUEGO
+            case R.id.elegirjuego:
+                Intent intent = new Intent (this, ElegirJuego.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.salir:
+                builder = new AlertDialog.Builder(this);
+                builder.setTitle("¿Desea salir de la aplicación?");
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.exit(0);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                //mostrar alert dialog
+                builder.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     //comprueba quien gana la mano
     public int ganador(int vJugador, int vIA){
@@ -303,11 +1109,11 @@ public class brisca_jugar extends AppCompatActivity {
             ganador = 0;
 
         }else if (cPalo.getPalo().equalsIgnoreCase(cartaElegidaIA.getPalo()) && !cPalo.getPalo().equalsIgnoreCase(cartaElegidaJugador.getPalo())){
-         //si coincide el palo ganador con el palo de la carta elegida por la IA pero NO con el de el jugador
+            //si coincide el palo ganador con el palo de la carta elegida por la IA pero NO con el de el jugador
             ganador = 1;
 
         }else if (cPalo.getPalo().equalsIgnoreCase(cartaElegidaIA.getPalo()) && cPalo.getPalo().equalsIgnoreCase(cartaElegidaJugador.getPalo())){
-         //si coincide el palo ganador con el palo de la carta elegida por la IA y TAMBIÉN con la del jugador
+            //si coincide el palo ganador con el palo de la carta elegida por la IA y TAMBIÉN con la del jugador
             //comprueba si alguien tiene un AS o TRES en la mesa
             if (vJugador==AS || vJugador==TRES || vIA==AS || vIA==TRES) {
 
@@ -375,224 +1181,6 @@ public class brisca_jugar extends AppCompatActivity {
             ganador=0;
         }
         return ganador;
-    }
-
-
-    //método para saber si gana la IA o el jugador
-    public int quienGana(int gana) {
-        //quitar las cartas de la mesa
-        cartaMesaIA.setVisibility(View.INVISIBLE);
-        cartaMesaJugador.setVisibility(View.INVISIBLE);
-        if (gana == 0) {
-            //calcular si los valores contienen puntos, sumarlos y actualizar los puntos
-            totalPuntosJugador += puntos.calcularPuntos();
-            tvPuntosJugador.setText("Puntos: " + totalPuntosJugador);
-            //quien gana le toca de nuevo sacar
-            turno = true;
-            cartaBasuraJugador.setVisibility(View.VISIBLE);
-            //mano terminada por la IA, se empieza de nuevo, turno de la IA
-            finRonda = false;
-        } else if (gana == 1) {
-            //calcular si los valores contienen puntos, sumarlos y actualizar los puntos
-            totalPuntosIA += puntos.calcularPuntos();
-            tvPuntosIA.setText("Puntos: " + totalPuntosIA);
-            //quien gana le toca de nuevo sacar
-            turno = false;
-            cartaBasuraIA.setVisibility(View.VISIBLE);
-            //mano terminada por el jugador, se empieza de nuevo, turno del jugador
-            finRonda = true;
-        }
-        return gana;
-    }
-
-    //metodo para saber quien empieza la ronda
-    // jugador 0
-    // IA 1
-    // si empieza la IA, tirará una carta de forma aleatoria en la mesa
-    // MEJORAR: QUE LA IA NO TIRE DE FORMA ALEATORIA, IMPLEMENTAR ALGUNAS POSIBILIDADES
-    public void empezarRonda(int gana){
-        if (gana==0){
-            //si es 0 empieza el jugador con que no será final de ronda
-            finRonda=false;
-           // turno=true;
-            tvTurno.setVisibility(View.VISIBLE);
-            cartaMesaIA.setVisibility(View.INVISIBLE);
-        }else if (gana==1){
-            //empieza IA, será final de ronda
-            tvTurno.setVisibility(View.INVISIBLE);
-            Random r = new Random();
-            int numeroRandomInicialIA = r.nextInt(3);
-            // desactivar la imagen que vamos a mostrar
-            if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
-            if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
-            if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
-            // coger una carta random y ponerla en la mesa
-            cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
-            URL = cartaElegidaIA.getImagen();
-            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
-            cartaMesaIA.setVisibility(View.VISIBLE);
-            // el siguiente turno será final de ronda
-            finRonda = true;
-            tvTurno.setVisibility(View.VISIBLE);
-        }
-    }
-
-    //metodo para desordenar las cartas
-    public void barajar() {
-        //inicar array
-        cartasDesordenadas = new ArrayList<Cartas>(cartas.size());
-        //introducir la primera carta
-        int random = (int)(Math.random()*40);
-        Cartas c = cartas.get(random);
-        cartasDesordenadas.add(c);
-
-        //bucle para introducir las cartas
-        for (int i = 0; cartasDesordenadas.size() < 40; i++) {
-            //obtener carta random del mazo original
-            random = (int) (Math.random() * 40);
-            c = cartas.get(random);
-            String idCarta = c.getId();
-            //bucle para comprobar is ya existe la carta
-            for (int j = 0; j < cartasDesordenadas.size(); j++) {
-                String idCartasDesordenadas = cartasDesordenadas.get(j).getId();
-                //si los id's coinciden, dejamos la carta a null y buscamos otro random
-                if (idCarta.equalsIgnoreCase(idCartasDesordenadas)) {
-                    c= null;
-                    break;
-                }
-            }
-            //añadir la carta si es distinto de null
-            if (c!=null){
-                cartasDesordenadas.add(c);
-            }
-        }
-    }
-
-    //método para sacar cartas
-    public Cartas sacarCartas() {
-        if (contador >=0) {
-            contador--;
-            //cuando no queden cartas, no aparecerá la imagen de la carta trasera en la mesa.
-            if (contador==0){
-                ivTrasera.setVisibility(View.INVISIBLE);
-            }
-            return cartasDesordenadas.get(contador);
-        }else {
-            throw new IllegalArgumentException("No quedan cartas.");
-        }
-    }
-
-    //muestra las cartas iniciales, elige el palo y quien empieza
-    private void ManoInicial() throws InterruptedException {
-        //carta que dara cual es el palo que manda sobre el juego
-        c = cartasDesordenadas.get(39);
-        URL = c.getImagen();
-        Picasso.with(this).load(URL).into(cartaPalo);
-        //guardar la carta palo para repartirla al final
-        cPalo = c;
-        tvPalo.setText(cPalo.getPalo().toUpperCase());
-        String URL;
-        //almacenamos en arrays las cartas iniciales
-        //de la IA no tendra imagen, puesto que el jugador no sabrá cuales tiene
-        cartasJugador.add(sacarCartas());
-        URL = cartasJugador.get(0).getImagen();
-        Picasso.with(this).load(URL).into(cartaMano1);
-
-        cartasIA1.add(sacarCartas());
-        //comentar: pruebas
-        URL = cartasIA1.get(0).getImagen();
-        Picasso.with(this).load(URL).into(cartaIA11);
-
-        cartasJugador.add(sacarCartas());
-        URL = cartasJugador.get(1).getImagen();
-        Picasso.with(this).load(URL).into(cartaMano2);
-
-        cartasIA1.add(sacarCartas());
-        //comentar: pruebas
-        URL = cartasIA1.get(1).getImagen();
-        Picasso.with(this).load(URL).into(cartaIA12);
-
-        cartasJugador.add(sacarCartas());
-        URL = cartasJugador.get(2).getImagen();
-        Picasso.with(this).load(URL).into(cartaMano3);
-
-        cartasIA1.add(sacarCartas());
-        //comentar: pruebas
-        URL = cartasIA1.get(2).getImagen();
-        Picasso.with(this).load(URL).into(cartaIA13);
-
-        //manejador para que se vean correctamente las transiciones entre las cartas
-        final Runnable rr = new Runnable() {
-            public void run() {
-                //seleccionar quien empieza la partida
-                Random r = new Random();
-                int i = r.nextInt(2);
-                int numeroRandomInicialIA = r.nextInt(3);
-                String URL="";
-                //Si es 1, sale IA, si es 2, sale el jugador
-                if (i==1){
-                    // desactivar la imagen que vamos a mostrar
-                    if(numeroRandomInicialIA==0)cartaIA11.setVisibility(View.INVISIBLE);
-                    if(numeroRandomInicialIA==1)cartaIA12.setVisibility(View.INVISIBLE);
-                    if(numeroRandomInicialIA==2)cartaIA13.setVisibility(View.INVISIBLE);
-                    // coger una carta random y ponerla en la mesa
-                    cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
-                    URL = cartaElegidaIA.getImagen();
-                    Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
-                    // el siguiente turno será final de ronda
-                    finRonda=true;
-                    tvTurno.setVisibility(View.VISIBLE);
-                    o=i;
-                }
-            }
-        };
-        handler.postDelayed(rr, 1500);
-        if (o==0)tvTurno.setVisibility(View.VISIBLE);
-       // turno=true;
-        }
-
-    //MENU
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Inflador del menú
-        MenuInflater infladorMenu = getMenuInflater();
-        infladorMenu.inflate(R.menu.menu_contextual, menu);
-        //Asociar el menu al menu_busqueda.xml
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        switch (item.getItemId()){
-
-            //ELEGIRJUEGO
-            case R.id.elegirjuego:
-                Intent intent = new Intent (this, ElegirJuego.class);
-                startActivityForResult(intent, 0);
-                break;
-            case R.id.salir:
-                builder = new AlertDialog.Builder(this);
-                builder.setTitle("¿Desea salir de la aplicación?");
-
-                // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
-                    }
-                });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                //mostrar alert dialog
-                builder.show();
-                break;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     public Cartas algoritmoIA() {
@@ -971,6 +1559,16 @@ public class brisca_jugar extends AppCompatActivity {
                     }
                 }
             }
+        }
+        //comprobación qué debería ser temporal
+        //  si nada funciona y para evitar errores la IA tirará una carta aleatoria
+        if (cartaIA==null){
+            Random r = new Random();
+            int numeroRandomCartaNull = r.nextInt(3);
+            // carta aleatoria
+            if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
+            if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
+            if (numeroRandomCartaNull == 2) cartaIA = cartasIA1.get(2);
         }
         return cartaIA;
     }

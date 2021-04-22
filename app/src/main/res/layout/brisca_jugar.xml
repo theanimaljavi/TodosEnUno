@@ -8,7 +8,6 @@
     android:background="@drawable/fondo_brisca"
     tools:context=".Brisca.brisca_jugar">
 
-
     <!-- usuario -->
 
     <TextView
@@ -157,8 +156,6 @@
     <!-- Cartas mesa -->
 
 
-    <!-- Puntos -->
-
     <ImageView
         android:id="@+id/cartaMesaIA1"
         android:layout_width="52dp"
@@ -191,10 +188,12 @@
 
     </ImageView>
 
+    <!-- Puntos -->
+
     <TextView
         android:id="@+id/tvPuntosIA"
-        android:layout_width="90dp"
-        android:layout_height="77dp"
+        android:layout_width="107dp"
+        android:layout_height="41dp"
         android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="Puntos: "
@@ -207,8 +206,8 @@
 
     <TextView
         android:id="@+id/tvPuntosJugador"
-        android:layout_width="90dp"
-        android:layout_height="77dp"
+        android:layout_width="97dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="12dp"
         android:gravity="center"
         android:text="Puntos: "
@@ -266,5 +265,32 @@
         app:layout_constraintTop_toTopOf="parent">
 
     </ImageView>
+
+    <!-- botón ayuda -->
+    <ImageButton
+        android:id="@+id/ibAyudaBrisca"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="360dp"
+        android:layout_marginTop="76dp"
+        android:src="@drawable/ic_help_outline_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </ImageButton>
+
+    <!-- ganador y ayuda-->
+
+    <FrameLayout
+        android:id="@+id/contenedorFragmentBrisca"
+        android:layout_width="370dp"
+        android:layout_height="684dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

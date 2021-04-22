@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFF6F29C"
+    tools:context=".Brisca.brisca_fragment_Ayuda">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="163dp"
+        android:layout_height="46dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="¿Cómo Jugar?"
+        android:textSize="25dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="297dp"
+        android:layout_height="82dp"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:text="El juego comienza de manera aleatoria, es decir puede ser que comienze tu rival o sea tu turno, para comprobar si es tu turno fijate encima de de las cartas que salga: 'tu turno'"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="291dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="72dp"
+        android:gravity="center"
+        android:text="En la mesa se podrá ver el triunfo. El triunfo significará el palo que ganará sobre el resto de otros palos."
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.525"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="289dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Ejemplo: si en la mesa a la izquierda sale: '5 de oros' OROS será el palo que gane a cualquier carta que sea distinta a OROS"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="293dp"
+        android:layout_height="53dp"
+        android:layout_marginBottom="232dp"
+        android:gravity="center"
+        android:text="Las mejores cartas son (en orden): AS=11puntos, 3=10puntos, Sota=2puntos, Caballo=3puntos, Rey=4puntos."
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="288dp"
+        android:layout_height="53dp"
+        android:gravity="center"
+        android:text="Para ganar la ronda tienes que tirar una carta superior a la de tu rival o tirar una carta triunfo en caso de que tu rival no lo haga."
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/textView17"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.971">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textview22"
+        android:layout_width="290dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:text="Al final de juego se calcula quien ha sacado más puntos y se proclamará ganador."
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.528"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.742">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/ibCerrarAyudaBrisca"
+        android:layout_width="63dp"
+        android:layout_height="61dp"
+        android:backgroundTint="#F6F29C"
+        android:src="@drawable/ic_close_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.471"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_bias="0.308">
+
+    </ImageButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
