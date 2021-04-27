@@ -56,9 +56,6 @@ public class brisca_jugar extends AppCompatActivity {
     int o=0, count=0;
     //manejador transiciones
     final Handler handler = new Handler();
-    //*****************TRABAJAR*****************
-    // 27/04
-    // colocar ivTrasera en las cartas IA
 
 
     @Override
