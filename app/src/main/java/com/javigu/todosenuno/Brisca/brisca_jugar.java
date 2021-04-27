@@ -49,14 +49,17 @@ public class brisca_jugar extends AppCompatActivity {
     TextView tvPalo,tvTurno,tvPuntosJugador,tvPuntosIA;
     boolean turno = false, finRonda = false, mandaIA=false,mandaJugador=false,finalizarJuego=false,ultimasCartas=false,juegoTerminado=false;
     String URL;
-    static int o=0;
+    //contadores
+    int o=0, count=0;
+    //manejador transiciones
     final Handler handler = new Handler();
     //*****************TRABAJAR*****************
-    //hacer final de juego miercoles 22/04
-    //con las ultimas cartas, jugador repite cartas (mirar cuando finalizaJuego=true)
-    //LA IA OCULTA MAL SUS CARTAS EN LAS ULTIMAS CARTAS
-    //NO SALE EL TEXTO DE GANADOR
-
+    // 26/04
+    // IMPORTANTE: EN LAS ULTIMAS CARTAS HAY MUCHOS FALLOS, MIRAR METODO (ULTIMASCARTAS())
+    // IMPORTANTE 2: no suma los puntos cuanso son las ultimas cartas
+    // IMPORTANTE 3: la IA mueve, tira y visualmente no hace nada bien
+    // finalizar fragmento del ganador
+    // ahora al inicio la IA muestra carta trasera, pero sigue mostrando las nuevas cartas q saca
 
 
     @Override
@@ -112,10 +115,7 @@ public class brisca_jugar extends AppCompatActivity {
                 cartaMano3.setEnabled(false);
                 //jugar
                 tvTurno.setVisibility(View.VISIBLE);
-                //solo se oculta si no son las 3 últimas cartas
-                if (!ultimasCartas) {
-                    cartaMano1.setVisibility(View.INVISIBLE);
-                }
+                cartaMano1.setVisibility(View.INVISIBLE);
                 cartaElegidaJugador = cartasJugador.get(0);
                 //imagen que vamos a colocar
                 URL = cartaElegidaJugador.getImagen();
@@ -167,17 +167,19 @@ public class brisca_jugar extends AppCompatActivity {
                             //ocultar la carta de la IA y quitar del array la carta seleccioanda
                             for (int i = 0; i < cartasIA1.size(); i++) {
                                 if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
-                                    if (i == 0) {
-                                        cartaIA11.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                    if (i == 1) {
-                                        cartaIA12.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                    if (i == 2) {
-                                        cartaIA13.setVisibility(View.INVISIBLE);
-                                        break;
+                                    if (!ultimasCartas) {
+                                        if (i == 0) {
+                                            cartaIA11.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                        if (i == 1) {
+                                            cartaIA12.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                        if (i == 2) {
+                                            cartaIA13.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -220,14 +222,34 @@ public class brisca_jugar extends AppCompatActivity {
                         }
                     };
                     handler.postDelayed(rSacarCartas, 1300);
+                    //cuando sean las últimas cartas se hace la llamada a ultimasCartas para el apartado visual y
+                    // comprobar si ya no quedan cartas para finalizar el juego
                 }else{
                     //manejador para esperar un tiempo en lo q se sacan las últimas cartas para empezar la ronda
                     final Runnable rSacarUltimasCartas = new Runnable() {
                         public void run() {
                             ultimasCartas(0);
+                            //llamada al fragment de resultado, si el jugador elige "seguir jugando"
+                            // empezará de nuevo el juego pero habrá un conteo global de los puntos en total
+                            //manejador para el apartado visual de los botones al inicio de la ronda
+                            if (juegoTerminado){
+                                tvTurno.setVisibility(View.INVISIBLE);
+                                final Runnable rResultado = new Runnable() {
+                                    public void run() {
+                                        briscaResultado fgBriscaResultado = new briscaResultado();
+                                        if (gana == 0) {
+                                            fgBriscaResultado = briscaResultado.newInstance(String.valueOf(0), String.valueOf(totalPuntosJugador), String.valueOf(totalPuntosIA));
+                                        } else {
+                                            fgBriscaResultado = briscaResultado.newInstance(String.valueOf(1), String.valueOf(totalPuntosJugador), String.valueOf(totalPuntosIA));
+                                        }
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentBrisca, fgBriscaResultado).commit();
+                                    }
+                                };
+                                handler.postDelayed(rResultado, 3000);
+                            }
                         }
                     };
-                    handler.postDelayed(rSacarUltimasCartas, 1300);
+                    handler.postDelayed(rSacarUltimasCartas, 700);
                 }
 
                 //manejador para que se vea correctamente el inicio de la ronda
@@ -238,7 +260,7 @@ public class brisca_jugar extends AppCompatActivity {
                         guardarPuntos.removeAll(guardarPuntos);
                     }
                 };
-                handler.postDelayed(rInicioRonda, 1500);
+                handler.postDelayed(rInicioRonda, 1700);
 
                 //manejador para el apartado visual de los botones al inicio de la ronda
                 final Runnable rBotones = new Runnable() {
@@ -249,7 +271,7 @@ public class brisca_jugar extends AppCompatActivity {
                         cartaMano3.setEnabled(true);
                     }
                 };
-                handler.postDelayed(rBotones, 2500);
+                handler.postDelayed(rBotones, 4000);
             }
         });
 
@@ -265,10 +287,7 @@ public class brisca_jugar extends AppCompatActivity {
                 cartaMano3.setEnabled(false);
                 //jugar
                 tvTurno.setVisibility(View.VISIBLE);
-                //solo se oculta si no son las 3 últimas cartas
-                if (!ultimasCartas) {
-                    cartaMano2.setVisibility(View.INVISIBLE);
-                }
+                cartaMano2.setVisibility(View.INVISIBLE);
                 cartaElegidaJugador = cartasJugador.get(1);
                 //imagen que vamos a colocar
                 URL = cartaElegidaJugador.getImagen();
@@ -320,17 +339,19 @@ public class brisca_jugar extends AppCompatActivity {
                             //ocultar la carta de la IA y quitar del array la carta seleccioanda
                             for (int i = 0; i < cartasIA1.size(); i++) {
                                 if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
-                                    if (i == 0) {
-                                        cartaIA11.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                    if (i == 1) {
-                                        cartaIA12.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                    if (i == 2) {
-                                        cartaIA13.setVisibility(View.INVISIBLE);
-                                        break;
+                                    if (!ultimasCartas) {
+                                        if (i == 0) {
+                                            cartaIA11.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                        if (i == 1) {
+                                            cartaIA12.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                        if (i == 2) {
+                                            cartaIA13.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -373,14 +394,34 @@ public class brisca_jugar extends AppCompatActivity {
                         }
                     };
                     handler.postDelayed(rSacarCartas, 1300);
+                    //cuando sean las últimas cartas se hace la llamada a ultimasCartas para el apartado visual y
+                    // comprobar si ya no quedan cartas para finalizar el juego
                 }else{
                     //manejador para esperar un tiempo en lo q se sacan las últimas cartas para empezar la ronda
                     final Runnable rSacarUltimasCartas = new Runnable() {
                         public void run() {
                             ultimasCartas(1);
+                            //llamada al fragment de resultado, si el jugador elige "seguir jugando"
+                            // empezará de nuevo el juego pero habrá un conteo global de los puntos en total
+                            //manejador para el apartado visual de los botones al inicio de la ronda
+                            if (juegoTerminado){
+                                tvTurno.setVisibility(View.INVISIBLE);
+                                final Runnable rResultado = new Runnable() {
+                                    public void run() {
+                                        briscaResultado fgBriscaResultado = new briscaResultado();
+                                        if (gana == 0) {
+                                            fgBriscaResultado = briscaResultado.newInstance(String.valueOf(0), String.valueOf(totalPuntosJugador), String.valueOf(totalPuntosIA));
+                                        } else {
+                                            fgBriscaResultado = briscaResultado.newInstance(String.valueOf(1), String.valueOf(totalPuntosJugador), String.valueOf(totalPuntosIA));
+                                        }
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentBrisca, fgBriscaResultado).commit();
+                                    }
+                                };
+                                handler.postDelayed(rResultado, 3000);
+                            }
                         }
                     };
-                    handler.postDelayed(rSacarUltimasCartas, 1300);
+                    handler.postDelayed(rSacarUltimasCartas, 700);
                 }
 
                 //manejador para que se vea correctamente el inicio de la ronda
@@ -402,7 +443,7 @@ public class brisca_jugar extends AppCompatActivity {
                         cartaMano3.setEnabled(true);
                     }
                 };
-                handler.postDelayed(rBotones, 2500);
+                handler.postDelayed(rBotones, 4000);
             }
         });
 
@@ -418,10 +459,9 @@ public class brisca_jugar extends AppCompatActivity {
                 cartaMano3.setEnabled(false);
                 //jugar
                 tvTurno.setVisibility(View.VISIBLE);
-                //solo se oculta si no son las 3 últimas cartas
-                if (!ultimasCartas) {
+
                     cartaMano3.setVisibility(View.INVISIBLE);
-                }
+
                 cartaElegidaJugador = cartasJugador.get(2);
                 //imagen que vamos a colocar
                 URL = cartaElegidaJugador.getImagen();
@@ -473,17 +513,19 @@ public class brisca_jugar extends AppCompatActivity {
                             //ocultar la carta de la IA y quitar del array la carta seleccioanda
                             for (int i = 0; i < cartasIA1.size(); i++) {
                                 if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
-                                    if (i == 0) {
-                                        cartaIA11.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                    if (i == 1) {
-                                        cartaIA12.setVisibility(View.INVISIBLE);
-                                        break;
-                                    }
-                                    if (i == 2) {
-                                        cartaIA13.setVisibility(View.INVISIBLE);
-                                        break;
+                                    if (!ultimasCartas) {
+                                        if (i == 0) {
+                                            cartaIA11.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                        if (i == 1) {
+                                            cartaIA12.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
+                                        if (i == 2) {
+                                            cartaIA13.setVisibility(View.INVISIBLE);
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -526,34 +568,46 @@ public class brisca_jugar extends AppCompatActivity {
                         }
                     };
                     handler.postDelayed(rSacarCartas, 1300);
+                 //cuando sean las últimas cartas se hace la llamada a ultimasCartas para el apartado visual y
+                    // comprobar si ya no quedan cartas para finalizar el juego
                 }else{
                     //manejador para esperar un tiempo en lo q se sacan las últimas cartas para empezar la ronda
                     final Runnable rSacarUltimasCartas = new Runnable() {
                         public void run() {
                             ultimasCartas(2);
+                            //llamada al fragment de resultado, si el jugador elige "seguir jugando"
+                            // empezará de nuevo el juego pero habrá un conteo global de los puntos en total
+                            //manejador para el apartado visual de los botones al inicio de la ronda
+                            if (juegoTerminado){
+                                tvTurno.setVisibility(View.INVISIBLE);
+                                final Runnable rResultado = new Runnable() {
+                                    public void run() {
+                                        briscaResultado fgBriscaResultado = new briscaResultado();
+                                        if (gana == 0) {
+                                            fgBriscaResultado = briscaResultado.newInstance(String.valueOf(0), String.valueOf(totalPuntosJugador), String.valueOf(totalPuntosIA));
+                                        } else {
+                                            fgBriscaResultado = briscaResultado.newInstance(String.valueOf(1), String.valueOf(totalPuntosJugador), String.valueOf(totalPuntosIA));
+                                        }
+                                        getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentBrisca, fgBriscaResultado).commit();
+                                    }
+                                };
+                                handler.postDelayed(rResultado, 3000);
+                            }
                         }
                     };
-                    handler.postDelayed(rSacarUltimasCartas, 1300);
-
+                    handler.postDelayed(rSacarUltimasCartas, 700);
                 }
 
-                //si no hay cartas en la mesa no se llamará al método de empezar ronda
-                if (!juegoTerminado) {
-                    //manejador para que se vea correctamente el inicio de la ronda
-                    final Runnable rInicioRonda = new Runnable() {
-                        public void run() {
-                            //empezar de nuevo la ronda
-                            empezarRonda(gana);
-                            guardarPuntos.removeAll(guardarPuntos);
-                        }
-                    };
-                    handler.postDelayed(rInicioRonda, 1700);
-                }else{
-                    //llamada al fragment de resultado, si el jugador elige "seguir jugando"
-                    // empezará de nuevo el juego pero habrá un conteo global de los puntos en total
-                    brisca_fragment_Ayuda fgBriscaResultado = new brisca_fragment_Ayuda();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentBrisca, fgBriscaResultado).addToBackStack(null).commit();
-                }
+                //manejador para que se vea correctamente el inicio de la ronda
+                final Runnable rInicioRonda = new Runnable() {
+                    public void run() {
+                        //empezar de nuevo la ronda
+                        empezarRonda(gana);
+                        guardarPuntos.removeAll(guardarPuntos);
+                    }
+                };
+                handler.postDelayed(rInicioRonda, 1700);
+
                 //manejador para el apartado visual de los botones al inicio de la ronda
                 final Runnable rBotones = new Runnable() {
                     public void run() {
@@ -563,7 +617,7 @@ public class brisca_jugar extends AppCompatActivity {
                         cartaMano3.setEnabled(true);
                     }
                 };
-                handler.postDelayed(rBotones, 6500);
+                handler.postDelayed(rBotones, 4000);
             }
         });
 }
@@ -571,9 +625,16 @@ public class brisca_jugar extends AppCompatActivity {
 
     //método para saber si gana la IA o el jugador
     public int quienGana(int gana) {
-        //quitar las cartas de la mesa
-        cartaMesaIA.setVisibility(View.INVISIBLE);
-        cartaMesaJugador.setVisibility(View.INVISIBLE);
+        //manejador para el apartado visual de las cartas en la mesa
+        final Runnable rBotones = new Runnable() {
+            public void run() {
+                //quitar las cartas de la mesa
+                cartaMesaIA.setVisibility(View.INVISIBLE);
+                cartaMesaJugador.setVisibility(View.INVISIBLE);
+            }
+        };
+        handler.postDelayed(rBotones, 1000);
+
         if (gana == 0) {
             //calcular si los valores contienen puntos, sumarlos y actualizar los puntos
             totalPuntosJugador += puntos.calcularPuntos();
@@ -610,26 +671,45 @@ public class brisca_jugar extends AppCompatActivity {
         }else if (gana==1){
             //empieza IA, será final de ronda
             tvTurno.setVisibility(View.INVISIBLE);
+            Random r = new Random();
+                //manejador para que se vea correctamente entre ver la nueva carta de la IA y la que lanza en caso de ganar la mano
+                final Runnable rInicioIA = new Runnable() {
+                    public void run() {
+                        //La "O" será el contador para sacar las cartas cuando ya no haya más cartas para sacar
+                        //  si "o" es 0 seguirá teniendo la opción entre 3 cartas posibles
+                        if (o==0){
+                            int numeroRandomInicialIA = r.nextInt(3);
+                            // desactivar la imagen que vamos a mostrar
+                            if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
+                            if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
+                            if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
+                            // coger una carta random y ponerla en la mesa
+                            cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
+                            // solo quedan 2 cartas, seleccionar una carta aleatoria
+                        }else if (o==1){
+                            int numeroRandomInicialIA = r.nextInt(2);
+                            // desactivar la imagen que vamos a mostrar
+                            if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
+                            if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
+                            // coger una carta random y ponerla en la mesa
+                            cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
+                        }else if (o==2){
+                            // coger la última carta que queda
+                            cartaElegidaIA = cartasIA1.get(0);
+                        }
 
-            //manejador para que se vea correctamente entre ver la nueva carta de la IA y la que lanza en caso de ganar la mano
-            final Runnable rInicioIA = new Runnable() {
-                public void run() {
-                    Random r = new Random();
-                    int numeroRandomInicialIA = r.nextInt(3);
-                    // desactivar la imagen que vamos a mostrar
-                    if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
-                    if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
-                    if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
-                    // coger una carta random y ponerla en la mesa
-                    cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
-                    URL = cartaElegidaIA.getImagen();
-                    Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
-                    cartaMesaIA.setVisibility(View.VISIBLE);
-                    tvTurno.setVisibility(View.VISIBLE);
-                }
-            };
-            handler.postDelayed(rInicioIA, 1500);
+                        //mostrar la carta elegida para la IA
+                        URL = cartaElegidaIA.getImagen();
+                        //en la última interacción del juego no se hará visible la carta de la IA
+                        if (o!=2){
+                            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                            cartaMesaIA.setVisibility(View.VISIBLE);
+                        }
 
+                        tvTurno.setVisibility(View.VISIBLE);
+                    }
+                };
+                handler.postDelayed(rInicioIA, 1500);
             // el siguiente turno será final de ronda
             finRonda = true;
         }
@@ -668,29 +748,32 @@ public class brisca_jugar extends AppCompatActivity {
 
     //método para manejar las ultimas cartas sobre la mesa, ya no se sacaran mas cartas
     public void ultimasCartas(int cartaJugador){
-        //si "o" es 3, se comprueban los puntos y se muestra el ganador, el juego habría finalizado
-        if (o!=3) {
+        //si "o" es 3
+        if (o<3) {
             //ULTIMAS CARTAS JUGADOR
             //quitar del array de la carta seleccionada
             cartasJugador.remove(cartaJugador);
             //dependiendo del número que se le pasa, eliminamos el boton
-            if (o==0){
+            if (o == 0) {
                 cartaMano3.setVisibility(View.GONE);
                 //carta 3 a la segunda posicion
                 URL = cartasJugador.get(1).getImagen();
                 Picasso.with(getApplicationContext()).load(URL).into(cartaMano2);
+                cartaMano2.setVisibility(View.VISIBLE);
                 //carta 2 a la primera posicion
                 URL = cartasJugador.get(0).getImagen();
                 Picasso.with(getApplicationContext()).load(URL).into(cartaMano1);
+                cartaMano1.setVisibility(View.VISIBLE);
 
-            }
-            else if (o==1){
+            } else if (o == 1) {
                 cartaMano2.setVisibility(View.GONE);
                 //carta 2 a la primera posicion
                 URL = cartasJugador.get(0).getImagen();
                 Picasso.with(getApplicationContext()).load(URL).into(cartaMano1);
+                cartaMano1.setVisibility(View.VISIBLE);
+            } else if (o == 2) {
+                cartaMano1.setVisibility(View.GONE);
             }
-            else if (o==2){ cartaMano1.setVisibility(View.GONE);}
 
             //ULTIMAS CARTAS IA
             //deshabilitar la carta de la IA dependiendo de su posición
@@ -698,29 +781,34 @@ public class brisca_jugar extends AppCompatActivity {
                 if (cartaElegidaIA.getId().equalsIgnoreCase(cartasIA1.get(i).getId())) {
                     //eliminamos la carta de la posicion del array
                     cartasIA1.remove(i);
-                    if (o==0){
+                    if (o == 0) {
                         cartaIA13.setVisibility(View.GONE);
                         //carta 3 a la segunda posicion
                         URL = cartasIA1.get(1).getImagen();
                         Picasso.with(getApplicationContext()).load(URL).into(cartaIA12);
+                        cartaIA12.setVisibility(View.VISIBLE);
                         //carta 2 a la primera posicion
                         URL = cartasIA1.get(0).getImagen();
                         Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
-                    } else if (o==1){
+                        cartaIA11.setVisibility(View.VISIBLE);
+                    } else if (o == 1) {
                         cartaIA12.setVisibility(View.GONE);
                         //carta 2 a la primera posicion
                         URL = cartasIA1.get(0).getImagen();
                         Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
-                    }else if (o==2){
+                        cartaIA11.setVisibility(View.VISIBLE);
+                    } else if (o == 2) {
                         cartaIA11.setVisibility(View.GONE);
-                        //ya no quedan cartas, activar chivato
-                        juegoTerminado=true;
                     }
                 }
             }
         }
         //sumar 1 a la variable o
         o++;
+        //si ya no quedan cartas, activamos chivato
+        if (cartasIA1.size()<=0 && cartasJugador.size()<=0){
+            juegoTerminado=true;
+        }
     }
 
     //método para sacar nuevas cartas
@@ -1003,6 +1091,7 @@ public class brisca_jugar extends AppCompatActivity {
         URL = cartasIA1.get(0).getImagen();
         Picasso.with(this).load(URL).into(cartaIA11);
 
+
         cartasJugador.add(sacarCartas());
         URL = cartasJugador.get(1).getImagen();
         Picasso.with(this).load(URL).into(cartaMano2);
@@ -1012,6 +1101,7 @@ public class brisca_jugar extends AppCompatActivity {
         URL = cartasIA1.get(1).getImagen();
         Picasso.with(this).load(URL).into(cartaIA12);
 
+
         cartasJugador.add(sacarCartas());
         URL = cartasJugador.get(2).getImagen();
         Picasso.with(this).load(URL).into(cartaMano3);
@@ -1020,6 +1110,7 @@ public class brisca_jugar extends AppCompatActivity {
         //comentar: pruebas
         URL = cartasIA1.get(2).getImagen();
         Picasso.with(this).load(URL).into(cartaIA13);
+
 
         //manejador para que se vean correctamente las transiciones entre las cartas
         final Runnable rr = new Runnable() {
@@ -1066,6 +1157,7 @@ public class brisca_jugar extends AppCompatActivity {
             //ELEGIRJUEGO
             case R.id.elegirjuego:
                 Intent intent = new Intent (this, ElegirJuego.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent, 0);
                 break;
             case R.id.salir:
@@ -1564,11 +1656,30 @@ public class brisca_jugar extends AppCompatActivity {
         //  si nada funciona y para evitar errores la IA tirará una carta aleatoria
         if (cartaIA==null){
             Random r = new Random();
-            int numeroRandomCartaNull = r.nextInt(3);
-            // carta aleatoria
-            if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
-            if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
-            if (numeroRandomCartaNull == 2) cartaIA = cartasIA1.get(2);
+            if(!ultimasCartas) {
+                int numeroRandomCartaNull = r.nextInt(3);
+                // carta aleatoria
+                if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
+                if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
+                if (numeroRandomCartaNull == 2) cartaIA = cartasIA1.get(2);
+
+            }else{
+                //si son las últimas cartas tirará un random dependiendo de las cartas que haya en la mesa
+                if (cartasIA1.size()==3) {
+                    int numeroRandomCartaNull = r.nextInt(3);
+                    // carta aleatoria
+                    if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
+                    if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
+                    if (numeroRandomCartaNull == 2) cartaIA = cartasIA1.get(2);
+                }else if (cartasIA1.size()==2){
+                    int numeroRandomCartaNull = r.nextInt(2);
+                    // carta aleatoria
+                    if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
+                    if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
+                }else{
+                    cartaIA = cartasIA1.get(0);
+                }
+            }
         }
         return cartaIA;
     }
