@@ -10,13 +10,15 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.javigu.todosenuno.Ahorcado.DosJugadores;
 import com.javigu.todosenuno.Ahorcado.ElegirTematica;
 import com.javigu.todosenuno.Brisca.brisca_jugar;
 
 public class ElegirJuego extends AppCompatActivity {
     TextView tvAhorcado,tvBrisca;
-    ImageButton ibAhorcado,ibBrisca;
+    ImageButton ibAhorcado;
+    LottieAnimationView lavBrisca;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +29,7 @@ public class ElegirJuego extends AppCompatActivity {
         tvAhorcado = findViewById(R.id.tvAhorcado);
         tvBrisca = findViewById(R.id.tvBrisca);
         ibAhorcado = findViewById(R.id.ibAhorcado);
-        ibBrisca = findViewById(R.id.ibBrisca);
+        lavBrisca = findViewById(R.id.ibBrisca);
 
 
         //navegar entre fragments al selecciona juego
@@ -63,7 +65,7 @@ public class ElegirJuego extends AppCompatActivity {
         });
 
         //seleccionar juego brisca
-        ibBrisca.setOnClickListener(new View.OnClickListener() {
+        lavBrisca.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), brisca_jugar.class);

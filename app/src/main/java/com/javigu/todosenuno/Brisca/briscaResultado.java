@@ -22,7 +22,7 @@ import com.javigu.todosenuno.R;
  * create an instance of this fragment.
  */
 public class briscaResultado extends Fragment {
-    LottieAnimationView lottie_trophy;
+    LottieAnimationView lottie_trophy,lottie_skull;
     Button btnSeguirJugando, btnElegirJuego;
     TextView tvGanador,tvJugador,tvIA;
     // TODO: Rename parameter arguments, choose names that match
@@ -85,7 +85,7 @@ public class briscaResultado extends Fragment {
         tvIA = view.findViewById(R.id.tvFragmentPuntosIA);
         //asociar lottie
         lottie_trophy = view.findViewById(R.id.lottieTrofeo);
-        lottie_trophy.setVisibility(View.INVISIBLE);
+        lottie_skull = view.findViewById(R.id.lottieskull);
 
         //mostrar los puntos del juego
         tvJugador.setText("Puntos: "+mParam2);
@@ -97,9 +97,11 @@ public class briscaResultado extends Fragment {
         // 0 ganó jugador, 1 ganó IA
         if (puntosJugador>puntosIA) {
             lottie_trophy.setVisibility(View.VISIBLE);
+            lottie_skull.setVisibility(View.INVISIBLE);
             tvGanador.setText("Has ganado, enhorabuena!");
         }else if (puntosIA>puntosJugador){
             lottie_trophy.setVisibility(View.INVISIBLE);
+            lottie_skull.setVisibility(View.VISIBLE);
             tvGanador.setText("Has perdido, siga probando");
         }else{
             tvGanador.setText("Empate!");
@@ -119,7 +121,7 @@ public class briscaResultado extends Fragment {
         btnSeguirJugando.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(v.getContext(), ElegirJuego.class);
+                Intent i = new Intent(v.getContext(), brisca_jugar.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 //puntos jugador
                 i.putExtra("brisca_resultadofragmentJugador", String.valueOf(mParam2));

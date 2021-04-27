@@ -44,7 +44,10 @@ public class brisca_jugar extends AppCompatActivity {
     Puntos puntos;
     ImageButton cartaMano1,cartaMano2,cartaMano3,cartaIA11,cartaIA12,cartaIA13,ibAyuda;
     Cartas c,cPalo,cartaElegidaJugador,cartaElegidaIA;
-    int contador=7, totalPuntosJugador=0,totalPuntosIA=0,gana=0;
+
+    //contador=39 para probar juego entero, contador=7 para probar últimas cartas
+    int contador=39, totalPuntosJugador=0,totalPuntosIA=0,gana=0;
+
     ImageView ivTrasera,cartaPalo,cartaMesaIA,cartaMesaJugador,cartaBasuraJugador,cartaBasuraIA;
     TextView tvPalo,tvTurno,tvPuntosJugador,tvPuntosIA;
     boolean turno = false, finRonda = false, mandaIA=false,mandaJugador=false,finalizarJuego=false,ultimasCartas=false,juegoTerminado=false;
@@ -54,12 +57,8 @@ public class brisca_jugar extends AppCompatActivity {
     //manejador transiciones
     final Handler handler = new Handler();
     //*****************TRABAJAR*****************
-    // 26/04
-    // IMPORTANTE: EN LAS ULTIMAS CARTAS HAY MUCHOS FALLOS, MIRAR METODO (ULTIMASCARTAS())
-    // IMPORTANTE 2: no suma los puntos cuanso son las ultimas cartas
-    // IMPORTANTE 3: la IA mueve, tira y visualmente no hace nada bien
-    // finalizar fragmento del ganador
-    // ahora al inicio la IA muestra carta trasera, pero sigue mostrando las nuevas cartas q saca
+    // 27/04
+    // colocar ivTrasera en las cartas IA
 
 
     @Override
@@ -249,7 +248,7 @@ public class brisca_jugar extends AppCompatActivity {
                             }
                         }
                     };
-                    handler.postDelayed(rSacarUltimasCartas, 700);
+                    handler.postDelayed(rSacarUltimasCartas, 1200);
                 }
 
                 //manejador para que se vea correctamente el inicio de la ronda
@@ -421,7 +420,7 @@ public class brisca_jugar extends AppCompatActivity {
                             }
                         }
                     };
-                    handler.postDelayed(rSacarUltimasCartas, 700);
+                    handler.postDelayed(rSacarUltimasCartas, 1200);
                 }
 
                 //manejador para que se vea correctamente el inicio de la ronda
@@ -595,7 +594,7 @@ public class brisca_jugar extends AppCompatActivity {
                             }
                         }
                     };
-                    handler.postDelayed(rSacarUltimasCartas, 700);
+                    handler.postDelayed(rSacarUltimasCartas, 1200);
                 }
 
                 //manejador para que se vea correctamente el inicio de la ronda
@@ -633,7 +632,8 @@ public class brisca_jugar extends AppCompatActivity {
                 cartaMesaJugador.setVisibility(View.INVISIBLE);
             }
         };
-        handler.postDelayed(rBotones, 1000);
+        handler.postDelayed(rBotones, 1300);
+
 
         if (gana == 0) {
             //calcular si los valores contienen puntos, sumarlos y actualizar los puntos
@@ -667,7 +667,14 @@ public class brisca_jugar extends AppCompatActivity {
             //si es 0 empieza el jugador con que no será final de ronda
             finRonda=false;
             tvTurno.setVisibility(View.VISIBLE);
-            cartaMesaIA.setVisibility(View.INVISIBLE);
+            //manejador para el apartado visual de las cartas en la mesa
+            final Runnable rBotones = new Runnable() {
+                public void run() {
+                    //quitar las cartas de la mesa
+                    cartaMesaIA.setVisibility(View.INVISIBLE);
+                }
+            };
+            handler.postDelayed(rBotones, 1300);
         }else if (gana==1){
             //empieza IA, será final de ronda
             tvTurno.setVisibility(View.INVISIBLE);
@@ -685,6 +692,10 @@ public class brisca_jugar extends AppCompatActivity {
                             if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
                             // coger una carta random y ponerla en la mesa
                             cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
+                            //mostrar la carta elegida para la IA
+                            URL = cartaElegidaIA.getImagen();
+                            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                            cartaMesaIA.setVisibility(View.VISIBLE);
                             // solo quedan 2 cartas, seleccionar una carta aleatoria
                         }else if (o==1){
                             int numeroRandomInicialIA = r.nextInt(2);
@@ -693,19 +704,18 @@ public class brisca_jugar extends AppCompatActivity {
                             if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
                             // coger una carta random y ponerla en la mesa
                             cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
+                            //mostrar la carta elegida para la IA
+                            URL = cartaElegidaIA.getImagen();
+                            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                            cartaMesaIA.setVisibility(View.VISIBLE);
                         }else if (o==2){
                             // coger la última carta que queda
                             cartaElegidaIA = cartasIA1.get(0);
-                        }
-
-                        //mostrar la carta elegida para la IA
-                        URL = cartaElegidaIA.getImagen();
-                        //en la última interacción del juego no se hará visible la carta de la IA
-                        if (o!=2){
+                            //mostrar la carta elegida para la IA
+                            URL = cartaElegidaIA.getImagen();
                             Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
                             cartaMesaIA.setVisibility(View.VISIBLE);
                         }
-
                         tvTurno.setVisibility(View.VISIBLE);
                     }
                 };
@@ -783,19 +793,20 @@ public class brisca_jugar extends AppCompatActivity {
                     cartasIA1.remove(i);
                     if (o == 0) {
                         cartaIA13.setVisibility(View.GONE);
+                        //comentar: pruebas visuales cartas IA
                         //carta 3 a la segunda posicion
                         URL = cartasIA1.get(1).getImagen();
-                        Picasso.with(getApplicationContext()).load(URL).into(cartaIA12);
+                        //Picasso.with(getApplicationContext()).load(URL).into(cartaIA12);
                         cartaIA12.setVisibility(View.VISIBLE);
                         //carta 2 a la primera posicion
                         URL = cartasIA1.get(0).getImagen();
-                        Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
+                        //Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
                         cartaIA11.setVisibility(View.VISIBLE);
                     } else if (o == 1) {
                         cartaIA12.setVisibility(View.GONE);
                         //carta 2 a la primera posicion
                         URL = cartasIA1.get(0).getImagen();
-                        Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
+                        //Picasso.with(getApplicationContext()).load(URL).into(cartaIA11);
                         cartaIA11.setVisibility(View.VISIBLE);
                     } else if (o == 2) {
                         cartaIA11.setVisibility(View.GONE);
@@ -815,7 +826,7 @@ public class brisca_jugar extends AppCompatActivity {
     public Cartas sacarCartas() {
         if (contador >0) {
             contador--;
-            //cuando llegue a 0, activamos chivato
+            //cuando llegue a 1, activamos chivato
             if (contador==1){
                 finalizarJuego=true;
             }
@@ -880,8 +891,9 @@ public class brisca_jugar extends AppCompatActivity {
                         cartasIA1.remove(3);
                         //imagen que vamos a colocar
                         URL = cartasIA1.get(0).getImagen();
+                        //comentar: pruebas visuales carta IA
                         //añadir la imagen en el centro de la mesa
-                        Picasso.with(this).load(URL).into(cartaIA11);
+                        //Picasso.with(this).load(URL).into(cartaIA11);
                         cartaIA11.setVisibility(View.VISIBLE);
                         break;
                     } else if (i == 1) {
@@ -891,14 +903,14 @@ public class brisca_jugar extends AppCompatActivity {
                         //imagen que vamos a colocar
                         URL = cartasIA1.get(1).getImagen();
                         //añadir la imagen en el centro de la mesa
-                        Picasso.with(this).load(URL).into(cartaIA12);
+                        //Picasso.with(this).load(URL).into(cartaIA12);
                         cartaIA12.setVisibility(View.VISIBLE);
                         break;
                     } else if (i == 2) {
                         //imagen que vamos a colocar
                         URL = cartasIA1.get(2).getImagen();
                         //añadir la imagen en el centro de la mesa
-                        Picasso.with(this).load(URL).into(cartaIA13);
+                       //Picasso.with(this).load(URL).into(cartaIA13);
                         cartaIA13.setVisibility(View.VISIBLE);
                         break;
                     }
@@ -965,8 +977,9 @@ public class brisca_jugar extends AppCompatActivity {
                             cartasIA1.remove(3);
                             //imagen que vamos a colocar
                             URL = cartasIA1.get(0).getImagen();
+                            //comentar: pruebas visuales carta IA
                             //añadir la imagen en el centro de la mesa
-                            Picasso.with(this).load(URL).into(cartaIA11);
+                            //Picasso.with(this).load(URL).into(cartaIA11);
                             cartaIA11.setVisibility(View.VISIBLE);
                             break;
                         } else if (i == 1) {
@@ -976,14 +989,14 @@ public class brisca_jugar extends AppCompatActivity {
                             //imagen que vamos a colocar
                             URL = cartasIA1.get(1).getImagen();
                             //añadir la imagen en el centro de la mesa
-                            Picasso.with(this).load(URL).into(cartaIA12);
+                            //Picasso.with(this).load(URL).into(cartaIA12);
                             cartaIA12.setVisibility(View.VISIBLE);
                             break;
                         } else if (i == 2) {
                             //imagen que vamos a colocar
                             URL = cartasIA1.get(2).getImagen();
                             //añadir la imagen en el centro de la mesa
-                            Picasso.with(this).load(URL).into(cartaIA13);
+                            //Picasso.with(this).load(URL).into(cartaIA13);
                             cartaIA13.setVisibility(View.VISIBLE);
                             break;
                         }
@@ -1038,8 +1051,9 @@ public class brisca_jugar extends AppCompatActivity {
                             cartasIA1.remove(3);
                             //imagen que vamos a colocar
                             URL = cartasIA1.get(0).getImagen();
+                            //comentar: pruebas visuales carta IA
                             //añadir la imagen en el centro de la mesa
-                            Picasso.with(this).load(URL).into(cartaIA11);
+                            //Picasso.with(this).load(URL).into(cartaIA11);
                             cartaIA11.setVisibility(View.VISIBLE);
                             break;
                         } else if (i == 1) {
@@ -1049,14 +1063,14 @@ public class brisca_jugar extends AppCompatActivity {
                             //imagen que vamos a colocar
                             URL = cartasIA1.get(1).getImagen();
                             //añadir la imagen en el centro de la mesa
-                            Picasso.with(this).load(URL).into(cartaIA12);
+                           //Picasso.with(this).load(URL).into(cartaIA12);
                             cartaIA12.setVisibility(View.VISIBLE);
                             break;
                         } else if (i == 2) {
                             //imagen que vamos a colocar
                             URL = cartasIA1.get(2).getImagen();
                             //añadir la imagen en el centro de la mesa
-                            Picasso.with(this).load(URL).into(cartaIA13);
+                            //Picasso.with(this).load(URL).into(cartaIA13);
                             cartaIA13.setVisibility(View.VISIBLE);
                             break;
                         }
@@ -1089,7 +1103,7 @@ public class brisca_jugar extends AppCompatActivity {
         cartasIA1.add(sacarCartas());
         //comentar: pruebas
         URL = cartasIA1.get(0).getImagen();
-        Picasso.with(this).load(URL).into(cartaIA11);
+        //Picasso.with(this).load(URL).into(cartaIA11);
 
 
         cartasJugador.add(sacarCartas());
@@ -1099,7 +1113,7 @@ public class brisca_jugar extends AppCompatActivity {
         cartasIA1.add(sacarCartas());
         //comentar: pruebas
         URL = cartasIA1.get(1).getImagen();
-        Picasso.with(this).load(URL).into(cartaIA12);
+        //Picasso.with(this).load(URL).into(cartaIA12);
 
 
         cartasJugador.add(sacarCartas());
@@ -1109,7 +1123,7 @@ public class brisca_jugar extends AppCompatActivity {
         cartasIA1.add(sacarCartas());
         //comentar: pruebas
         URL = cartasIA1.get(2).getImagen();
-        Picasso.with(this).load(URL).into(cartaIA13);
+        //Picasso.with(this).load(URL).into(cartaIA13);
 
 
         //manejador para que se vean correctamente las transiciones entre las cartas
@@ -1655,31 +1669,7 @@ public class brisca_jugar extends AppCompatActivity {
         //comprobación qué debería ser temporal
         //  si nada funciona y para evitar errores la IA tirará una carta aleatoria
         if (cartaIA==null){
-            Random r = new Random();
-            if(!ultimasCartas) {
-                int numeroRandomCartaNull = r.nextInt(3);
-                // carta aleatoria
-                if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
-                if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
-                if (numeroRandomCartaNull == 2) cartaIA = cartasIA1.get(2);
-
-            }else{
-                //si son las últimas cartas tirará un random dependiendo de las cartas que haya en la mesa
-                if (cartasIA1.size()==3) {
-                    int numeroRandomCartaNull = r.nextInt(3);
-                    // carta aleatoria
-                    if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
-                    if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
-                    if (numeroRandomCartaNull == 2) cartaIA = cartasIA1.get(2);
-                }else if (cartasIA1.size()==2){
-                    int numeroRandomCartaNull = r.nextInt(2);
-                    // carta aleatoria
-                    if (numeroRandomCartaNull == 0) cartaIA = cartasIA1.get(0);
-                    if (numeroRandomCartaNull == 1) cartaIA = cartasIA1.get(1);
-                }else{
-                    cartaIA = cartasIA1.get(0);
-                }
-            }
+            cartaIA = cartasIA1.get(0);
         }
         return cartaIA;
     }
