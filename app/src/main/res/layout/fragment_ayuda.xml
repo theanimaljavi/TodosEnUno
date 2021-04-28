@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F29C"
+    android:background="#D8C2EF"
     android:id="@+id/ahorcado_ayuda_fragment"
     tools:context=".Ahorcado.AyudaFragment">
 
@@ -107,15 +107,14 @@
         android:id="@+id/ibCerrar"
         android:layout_width="63dp"
         android:layout_height="61dp"
+        android:background="#C29EE8"
+        android:src="@drawable/ic_close_24"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.442"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
-        android:src="@drawable/ic_close_24"
-        android:backgroundTint="#F6F29C"
-        app:layout_constraintVertical_bias="0.261">
+        app:layout_constraintVertical_bias="0.212">
 
     </ImageButton>
 

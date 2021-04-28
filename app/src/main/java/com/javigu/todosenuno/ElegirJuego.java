@@ -14,10 +14,11 @@ import com.airbnb.lottie.LottieAnimationView;
 import com.javigu.todosenuno.Ahorcado.DosJugadores;
 import com.javigu.todosenuno.Ahorcado.ElegirTematica;
 import com.javigu.todosenuno.Brisca.brisca_jugar;
+import com.javigu.todosenuno.Sudoku.sudoku_jugar;
 
 public class ElegirJuego extends AppCompatActivity {
     TextView tvAhorcado,tvBrisca;
-    ImageButton ibAhorcado;
+    ImageButton ibAhorcado, ibSudoku;
     LottieAnimationView lavBrisca;
 
     @Override
@@ -29,6 +30,7 @@ public class ElegirJuego extends AppCompatActivity {
         tvAhorcado = findViewById(R.id.tvAhorcado);
         tvBrisca = findViewById(R.id.tvBrisca);
         ibAhorcado = findViewById(R.id.ibAhorcado);
+        ibSudoku = findViewById(R.id.ibSudoku);
         lavBrisca = findViewById(R.id.ibBrisca);
 
 
@@ -70,6 +72,15 @@ public class ElegirJuego extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent (v.getContext(), brisca_jugar.class);
                 startActivityForResult(intent, 0);
+            }
+        });
+
+        //elegir juego Sudoku
+        ibSudoku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), sudoku_jugar.class);
+                startActivityForResult(intent,0);
             }
         });
     }

@@ -27,6 +27,7 @@
         android:gravity="center"
         android:text="Escibre cualquier palabra:"
         android:textSize="18dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,6 +42,8 @@
         android:layout_marginTop="64dp"
         android:digits="ABCDEFGHIJKLMNÑOPQRSTUVWXYZ"
         android:hint="Introduce una palabra"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
         android:inputType="textCapCharacters"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -58,6 +61,7 @@
         android:gravity="center"
         android:text="Jugar Solo"
         android:textSize="20dp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ibElegirTematica"
         app:layout_constraintStart_toStartOf="parent">
@@ -97,6 +101,8 @@
         android:gravity="center"
         android:text="Elegir Juego"
         android:textSize="20dp"
+        android:textColor="@color/black"
+
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/ibElegirJuego"
         app:layout_constraintEnd_toEndOf="parent">

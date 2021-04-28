@@ -1,9 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/sudoku_fondo"
     tools:context=".Sudoku.sudoku_jugar">
+
+    <com.javigu.todosenuno.Sudoku.SudokuEstilo
+        android:layout_width="325dp"
+        android:layout_height="538dp"
+        custom:colorTablero="#000000"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toTopOf="parent"
+        custom:layout_constraintVertical_bias="0.268">
+
+    </com.javigu.todosenuno.Sudoku.SudokuEstilo>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

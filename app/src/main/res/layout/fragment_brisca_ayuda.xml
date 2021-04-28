@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#FFF6F29C"
+    android:background="#FBE698"
     tools:context=".Brisca.brisca_fragment_Ayuda">
 
     <TextView
@@ -127,7 +127,7 @@
         android:layout_height="61dp"
         android:textColor="@color/black"
 
-        android:backgroundTint="#F6F29C"
+        android:backgroundTint="#AFA816"
         android:src="@drawable/ic_close_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
