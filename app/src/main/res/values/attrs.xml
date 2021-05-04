@@ -2,6 +2,11 @@
 <resources>
     <declare-styleable name="SudokuEstilo">
         <attr name="colorTablero" format="color"/>
+        <attr name="celdaSeleccionadaColor" format="color"/>
+        <attr name="celdasResalte" format="color"/>
+        <attr name="colorLetra" format="color"/>
+        <attr name="colorAcierto" format="color"/>
+        <attr name="colorError" format="color"/>
 
     </declare-styleable>
 </resources>

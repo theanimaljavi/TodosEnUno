@@ -9,9 +9,15 @@
     tools:context=".Sudoku.sudoku_jugar">
 
     <com.javigu.todosenuno.Sudoku.SudokuEstilo
+        android:id="@+id/sudokuEstilo"
         android:layout_width="325dp"
         android:layout_height="538dp"
+        custom:celdaSeleccionadaColor="#B77AE3"
+        custom:celdasResalte="#F0B6FA"
         custom:colorTablero="#000000"
+        custom:colorLetra="@color/black"
+        custom:colorAcierto="@color/green"
+        custom:colorError="@color/red"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintStart_toStartOf="parent"
@@ -19,5 +25,133 @@
         custom:layout_constraintVertical_bias="0.268">
 
     </com.javigu.todosenuno.Sudoku.SudokuEstilo>
+
+    <LinearLayout
+        android:layout_width="357dp"
+        android:layout_height="274dp"
+        android:orientation="horizontal"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/sudokuEstilo">
+
+        <Button
+            android:id="@+id/btn1"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn1"
+            android:text="1"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn2"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn2"
+            android:text="2"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn3"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn3"
+            android:text="3"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn4"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn4"
+            android:text="4"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn5"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn5"
+            android:text="5"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn6"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn6"
+            android:text="6"
+            android:textColor="@color/black"
+            android:textSize="20sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn7"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn7"
+            android:text="7"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn8"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn8"
+            android:text="8"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+
+        </Button>
+
+        <Button
+            android:id="@+id/btn9"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:onClick="btn9"
+            android:text="9"
+            android:textColor="@color/black"
+            android:textSize="18sp">
+
+        </Button>
+
+    </LinearLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
