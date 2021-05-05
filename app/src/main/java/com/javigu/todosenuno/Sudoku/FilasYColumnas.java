@@ -4,33 +4,16 @@ import java.util.ArrayList;
 
 public class FilasYColumnas {
     ArrayList<ArrayList<Object>> cajaVacia;
-
-    boolean acierto=false;
     int selected_row;
     int selected_column;
 
-    int [][] sudoku;
+    static int [][] sudoku;
 
     //constructor, fija las columnas y filas del array y genera el sudoku desde la calse SudokuGenerator
     FilasYColumnas(){
         selected_row = -1;
         selected_column = -1;
-        //sudoku generado aleatoriamente
-        sudoku = SudokuGenerator.getInstance().generateGrid();
         cajaVacia = new ArrayList<>();
-    }
-
-    private void getCajasVacias(){
-        //llenar el tablero de 0's
-        for (int r =0; r<9;r++){
-            for (int c =0; c<9;c++){
-                if (this.sudoku[r][c] == 0){
-                    this.cajaVacia.add(new ArrayList<>());
-                    this.cajaVacia.get(this.cajaVacia.size()-1).add(r);
-                    this.cajaVacia.get(this.cajaVacia.size()-1).add(c);
-                }
-            }
-        }
     }
 
     //método para cambiar una nueva posición en el tablero
@@ -42,7 +25,8 @@ public class FilasYColumnas {
         if ( r != -1 && c != -1){
             //comprobar que no este en el sudoku del jugador
             //  ya que las casillas de sudoku jugador no se podrán modificar
-            if (SudokuEstilo.sudoku_jugador[r-1][c-1] == 0){
+            if (SudokuEstilo.sFC.getTablero()[r-1][c-1] != SudokuEstilo.sudoku_jugador_copia[r-1][c-1]){
+                System.out.println("Número Sudoku acertar: "+SudokuEstilo.sFC.getTablero()[r-1][c-1]);
                 SudokuEstilo.sudoku_jugador[r-1][c-1]=num;
             }
         }

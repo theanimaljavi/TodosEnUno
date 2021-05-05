@@ -1,6 +1,7 @@
 package com.javigu.todosenuno;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -62,6 +63,20 @@ public class inicio extends Fragment {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        vvLogo.pause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(vvLogo != null){
+            vvLogo.start();
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup view = (ViewGroup) inflater.inflate(R.layout.fragment_inicio, container, false);
@@ -73,12 +88,19 @@ public class inicio extends Fragment {
         String path = "android.resource://com.javigu.todosenuno/" + R.raw.logo;
         vvLogo.setVideoURI(Uri.parse(path));
         vvLogo.start();
+        vvLogo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                vvLogo.start();
+            }
+        });
 
         btnInicio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //cargar actividad elegir juego
                 Intent intent = new Intent (v.getContext(), ElegirJuego.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent, 0);
             }
         });

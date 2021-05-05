@@ -27,13 +27,15 @@
     </com.javigu.todosenuno.Sudoku.SudokuEstilo>
 
     <LinearLayout
-        android:layout_width="357dp"
-        android:layout_height="274dp"
+        android:id="@+id/linearLayout"
+        android:layout_width="367dp"
+        android:layout_height="56dp"
         android:orientation="horizontal"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintStart_toStartOf="parent"
-        custom:layout_constraintTop_toBottomOf="@+id/sudokuEstilo">
+        custom:layout_constraintTop_toBottomOf="@+id/sudokuEstilo"
+        custom:layout_constraintVertical_bias="0.0">
 
         <Button
             android:id="@+id/btn1"
@@ -152,6 +154,50 @@
 
     </LinearLayout>
 
+
+    <Button
+        android:id="@+id/btnComprobar"
+        android:layout_width="110dp"
+        android:layout_height="46dp"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_marginStart="28dp"
+        android:text="Comprobar"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        custom:layout_constraintVertical_bias="0.061">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnResolver"
+        android:layout_width="110dp"
+        android:layout_height="46dp"
+        android:textSize="11sp"
+        android:text="Resolver"
+        android:textStyle="bold"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.758"
+        custom:layout_constraintStart_toEndOf="@+id/btnComprobar"
+        custom:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        custom:layout_constraintVertical_bias="0.061">
+
+    </Button>
+
+    <VideoView
+        android:id="@+id/victoria"
+        android:layout_width="126dp"
+        android:layout_height="163dp"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintHorizontal_bias="0.469"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toTopOf="parent"
+        custom:layout_constraintVertical_bias="0.868">
+
+    </VideoView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

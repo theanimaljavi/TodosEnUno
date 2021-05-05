@@ -80,7 +80,10 @@ public class ElegirJuego extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), sudoku_jugar.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent,0);
+
+
             }
         });
     }

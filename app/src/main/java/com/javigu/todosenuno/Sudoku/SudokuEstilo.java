@@ -34,8 +34,9 @@ public class SudokuEstilo extends View {
     public static int cellSize;
     boolean colorNegro=false;
 
-    FilasYColumnas sFC = new FilasYColumnas();
+    static FilasYColumnas sFC = new FilasYColumnas();
     static int [][] sudoku_jugador = new int[9][9];
+    static int [][] sudoku_jugador_copia = new int[9][9];
 
     //constructor para asignar nuestro xml de estilo
     public SudokuEstilo(Context context, @Nullable AttributeSet attrs) {
@@ -124,6 +125,10 @@ public class SudokuEstilo extends View {
                 if (sFC.getTablero()[r][c] != 0 && contador==3){
                     //añadir el número al sudoku del jugador
                     sudoku_jugador[r][c] = sFC.getTablero()[r][c];
+                    //añadiremos otra copia más del array solo para cambiar el color de los números
+                    // cuando estos sean introducidos por el usuario
+                    sudoku_jugador_copia[r][c] = sFC.getTablero()[r][c];
+
                 }
                 contador++;
                 if (contador==4) {
@@ -136,47 +141,41 @@ public class SudokuEstilo extends View {
         //mostrar los numeros del array del jugador
         for (int r=0;r<9;r++) {
             for (int c = 0; c < 9; c++) {
-                if (sudoku_jugador[r][c] != 0) {
-                    String texto = Integer.toString(sudoku_jugador[r][c]);
-                    float width, height;
+                //si el chivato de resuelto esta activado significa q se resolverá el sudoku
+                if (!sudoku_jugar.resuelto) {
+                    if (sudoku_jugador[r][c] != 0) {
+                        String texto = Integer.toString(sudoku_jugador[r][c]);
+                        float width, height;
 
+                        colorLetraPaint.getTextBounds(texto, 0, texto.length(), colorLetraLimite);
+                        width = colorLetraPaint.measureText(texto);
+                        height = colorLetraLimite.height();
+                        if (sudoku_jugador[r][c] != sudoku_jugador_copia[r][c]) {
+                            colorLetraPaint.setColor(colorError);
+                            canvas.drawText(texto, (c * cellSize) + ((cellSize - width) / 2),
+                                    (r * cellSize + cellSize) - ((cellSize - height) / 2),
+                                    colorLetraPaint);
+                        } else {
+                            colorLetraPaint.setColor(colorLetra);
+                            canvas.drawText(texto, (c * cellSize) + ((cellSize - width) / 2),
+                                    (r * cellSize + cellSize) - ((cellSize - height) / 2),
+                                    colorLetraPaint);
+                        }
+                    }
+                    // para ello se rellenará en negro todas las celdas
+                }else{
+                    String texto = Integer.toString(sFC.getTablero()[r][c]);
+                    float width, height;
                     colorLetraPaint.getTextBounds(texto, 0, texto.length(), colorLetraLimite);
                     width = colorLetraPaint.measureText(texto);
                     height = colorLetraLimite.height();
-                    if (sudoku_jugador[r][c] != sFC.getTablero()[r][c]) {
-                        colorLetraPaint.setColor(colorError);
-                        canvas.drawText(texto, (c * cellSize) + ((cellSize - width) / 2),
-                                (r * cellSize + cellSize) - ((cellSize - height) / 2),
-                                colorLetraPaint);
-                    } else {
-                        colorLetraPaint.setColor(colorLetra);
-                        canvas.drawText(texto, (c * cellSize) + ((cellSize - width) / 2),
-                                (r * cellSize + cellSize) - ((cellSize - height) / 2),
-                                colorLetraPaint);
-                    }
+                    colorLetraPaint.setColor(colorLetra);
+                    canvas.drawText(texto, (c * cellSize) + ((cellSize - width) / 2),
+                            (r * cellSize + cellSize) - ((cellSize - height) / 2),
+                            colorLetraPaint);
                 }
             }
         }
-/*
-        //el número de la celda será el correcto
-        colorLetraPaint.setColor(colorAcierto);
-
-        for (ArrayList<Object> letras : sFC.getCajaVacia()){
-            int r = (int) letras.get(0);
-            int c = (int) letras.get(1);
-
-            String texto = Integer.toString(sFC.getTablero()[r][c]);
-            float width, height;
-
-            colorLetraPaint.getTextBounds(texto, 0, texto.length(), colorLetraLimite);
-            width = colorLetraPaint.measureText(texto);
-            height = colorLetraLimite.height();
-
-            canvas.drawText(texto, (c*cellSize) + ((cellSize - width)/2),
-                    (r*cellSize+cellSize) - ((cellSize - height)/2),
-                    colorLetraPaint);
-        }
-*/
     }
 
     //colores para las celdas
