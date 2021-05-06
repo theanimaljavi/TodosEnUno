@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#9EF4EC"
+    tools:context=".Sudoku.sudoku_fragment_ayuda">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="129dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"
+        android:text="¿Cómo Jugar?"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="381dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:text="El juego consiste en rellenar todas las celdas con números. Una vez rellenadas todas las celdas, habrá que darle al botón de comprobar, para saber si se a completado correctamente, si no sale una imagen de 'victoria' es que algún número está mal."
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+    </TextView>
+
+    <TextView
+        android:layout_width="382dp"
+        android:layout_height="34dp"
+        android:gravity="center"
+        android:text="El botón de resolver finalizará el juego rellenando correctamente los números."
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.34"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintVertical_bias="0.015">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="387dp"
+        android:layout_height="33dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="492dp"
+        android:gravity="center"
+        android:text="Los números no se podrán repetir dentro de cada cuadrado de números: "
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintVertical_bias="0.586">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/ayuda_cuadrado_correcto"
+        android:layout_width="93dp"
+        android:layout_height="94dp"
+        android:src="@drawable/brisca_ayuda_cuadrado"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.77"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:gravity="center"
+        android:text="Correcto"
+        android:textColor="#4E8C19"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayuda_cuadrado_correcto"
+        app:layout_constraintVertical_bias="0.0">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/ayuda_cuadrado_repetido"
+        android:layout_width="93dp"
+        android:layout_height="94dp"
+        android:src="@drawable/brisca_ayuda_cuadrado_repetido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.172"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView11"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="340dp"
+        android:gravity="center"
+        android:text="Número repetido"
+        android:textColor="#E44641"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.188"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayuda_cuadrado_repetido"
+        app:layout_constraintVertical_bias="0.0">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="392dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:text="Tampoco horizontalmente dentro de todas las celdas permitidas."
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.481">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/ayuda_horizontal"
+        android:layout_width="176dp"
+        android:layout_height="32dp"
+        android:src="@drawable/brisca_ayuda_hori"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.931"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_bias="0.016">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="308dp"
+        android:gravity="center"
+        android:text="Correcto"
+        android:textColor="#4E8C19"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayuda_horizontal"
+        app:layout_constraintVertical_bias="0.0">
+
+    </TextView>
+
+
+    <ImageView
+        android:id="@+id/ayuda_horizontal_repetido"
+        android:layout_width="176dp"
+        android:layout_height="32dp"
+        android:src="@drawable/brisca_ayuda_hori_repetido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.068"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:layout_constraintVertical_bias="0.016">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="252dp"
+        android:gravity="center"
+        android:text="Número repetido"
+        android:textColor="#E44641"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ayuda_horizontal_repetido"
+        app:layout_constraintVertical_bias="0.0">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="401dp"
+        android:layout_height="29dp"
+        android:gravity="center"
+        android:text="Ni tampoco verticalmente mirando todas las celdas del tablero. "
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.652">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/ayuda_vertical"
+        android:layout_width="39dp"
+        android:layout_height="226dp"
+        android:layout_marginBottom="200dp"
+        android:src="@drawable/brisca_ayuda_verti"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.932"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="244dp"
+        android:gravity="center"
+        android:text="Correcto"
+        android:textColor="#4E8C19"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/ayuda_vertical"
+        app:layout_constraintHorizontal_bias="0.562"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.807">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/ayuda_vertical_repetido"
+        android:layout_width="39dp"
+        android:layout_height="226dp"
+        android:layout_marginBottom="220dp"
+        android:src="@drawable/brisca_ayuda_verti_repetido"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="260dp"
+        android:gravity="center"
+        android:text="Número repetido"
+        android:textColor="#E44641"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ayuda_vertical_repetido"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.807">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/ibCerrarAyudaSudoku"
+        android:layout_width="63dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="40dp"
+
+        android:backgroundTint="#53EAD2"
+        android:src="@drawable/ic_close_24"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ImageButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

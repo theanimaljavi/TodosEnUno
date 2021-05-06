@@ -11,10 +11,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.VideoView;
 
 import com.javigu.todosenuno.Ahorcado.DosJugadores;
 import com.javigu.todosenuno.Ahorcado.ElegirTematica;
+import com.javigu.todosenuno.Brisca.brisca_fragment_Ayuda;
 import com.javigu.todosenuno.ElegirJuego;
 import com.javigu.todosenuno.R;
 
@@ -26,10 +28,11 @@ public class sudoku_jugar extends AppCompatActivity {
     private FilasYColumnas fc;
     Canvas canvas;
     boolean acierto;
-    Button btnC,btnR;
+    static Button btnC,btnR;
     SudokuEstilo sFC;
     int comprobar=0;
     VideoView vvVictoria;
+    ImageButton ibAyudaSudoku;
     static boolean resuelto;
 
     //**********TRABAJAR********
@@ -46,6 +49,7 @@ public class sudoku_jugar extends AppCompatActivity {
 
         btnC= findViewById(R.id.btnComprobar);
         btnR= findViewById(R.id.btnResolver);
+        ibAyudaSudoku = findViewById(R.id.ibAyudaSudoku);
         vvVictoria = findViewById(R.id.victoria);
         vvVictoria.setVisibility(View.GONE);
 
@@ -147,6 +151,15 @@ public class sudoku_jugar extends AppCompatActivity {
                     startActivity(intent);
                     overridePendingTransition(0, 0);
                 }
+            }
+        });
+
+        //boton de ayuda, abrirá el contenedor de ayuda
+        ibAyudaSudoku.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sudoku_fragment_ayuda fgAyuda= new sudoku_fragment_ayuda();
+                getSupportFragmentManager().beginTransaction().replace(R.id.contenedorFragmentSudoku , fgAyuda).commit();
             }
         });
     }

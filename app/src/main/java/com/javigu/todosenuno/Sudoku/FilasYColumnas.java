@@ -23,11 +23,18 @@ public class FilasYColumnas {
         int c =this.selected_column;
         // si tenemos selecionada una casilla
         if ( r != -1 && c != -1){
+
             //comprobar que no este en el sudoku del jugador
             //  ya que las casillas de sudoku jugador no se podrán modificar
             if (SudokuEstilo.sFC.getTablero()[r-1][c-1] != SudokuEstilo.sudoku_jugador_copia[r-1][c-1]){
                 System.out.println("Número Sudoku acertar: "+SudokuEstilo.sFC.getTablero()[r-1][c-1]);
-                SudokuEstilo.sudoku_jugador[r-1][c-1]=num;
+
+                //si el jugador pulsa el mismo número que ya estaba puesto, este se eliminará
+                if (SudokuEstilo.sudoku_jugador[r-1][c-1]==num){
+                    SudokuEstilo.sudoku_jugador[r-1][c-1]=0;
+                }else {
+                    SudokuEstilo.sudoku_jugador[r - 1][c - 1] = num;
+                }
             }
         }
     }
