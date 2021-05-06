@@ -18,6 +18,8 @@ import com.javigu.todosenuno.Ahorcado.ElegirTematica;
 import com.javigu.todosenuno.ElegirJuego;
 import com.javigu.todosenuno.R;
 
+import static com.javigu.todosenuno.Sudoku.SudokuEstilo.sudoku_jugador_copia;
+
 public class sudoku_jugar extends AppCompatActivity {
 
     private SudokuEstilo tablero;
@@ -31,7 +33,6 @@ public class sudoku_jugar extends AppCompatActivity {
     static boolean resuelto;
 
     //**********TRABAJAR********
-    // posible error, el sudoku_jugador no se muestra correctamente
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,9 @@ public class sudoku_jugar extends AppCompatActivity {
         setContentView(R.layout.sudoku_jugar);
         //cargar un nuevo sudoku cada vez que se inicie el juego sudoku
         FilasYColumnas.sudoku = SudokuGenerator.getInstance().generateGrid();
+        //iniciar array
+        SudokuEstilo.sudoku_jugador = new int[9][9];
+
 
         btnC= findViewById(R.id.btnComprobar);
         btnR= findViewById(R.id.btnResolver);
@@ -51,8 +55,6 @@ public class sudoku_jugar extends AppCompatActivity {
         resuelto=false;
         //ver el sudoku internamente
         printSudoku(SudokuEstilo.sFC.getTablero());
-        System.out.println("OTRO SUDOKU");
-        printSudoku(SudokuEstilo.sudoku_jugador);
         //boton para comprobar si los sudokus coinciden,
         // si coincide saldrá video de victoria, sino, el jugador podrá seguir jugando
         btnC.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +69,8 @@ public class sudoku_jugar extends AppCompatActivity {
                     }
                 }
                 System.out.println("Número comprobar acierto: "+comprobar);
+                printSudoku(SudokuEstilo.sudoku_jugador);
+
                 // si es 81, cargar mensaje de victoria.
                 if (comprobar==81){
                     System.out.println("Número comprobar acierto: "+comprobar);
@@ -98,13 +102,25 @@ public class sudoku_jugar extends AppCompatActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
                     builder.setMessage("Seguro que quieres resolver el sudoku?")
                             .setCancelable(false)
-                            //dos jugadores
+                            //se resolverá el puzzle
                             .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //cambiar el texto para tener la opción de reiniciar el sudoku
                                     btnR.setText("Volver a empezar");
                                     //activar chivato para resolver
                                     resuelto = true;
+                                    //inicar de nuevo el array
+                                    SudokuEstilo.sudoku_jugador = new int[9][9];
+                                    //volver el array del jugador igual al del juego
+                                    for (int r=0;r<9;r++){
+                                        for (int c=0;c<9;c++){
+                                            //la copia tiene los números iniciales en negro, esas posiciones serán las q tendrá ahora el array del jugador
+                                            if (sudoku_jugador_copia[r][c] != 0){
+                                                //añadir el número al sudoku del jugador
+                                                SudokuEstilo.sudoku_jugador[r][c] = sudoku_jugador_copia[r][c];
+                                            }
+                                        }
+                                    }
                                 }
                             })
                             //si respone "No" seguirá todo como estaba
