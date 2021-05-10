@@ -204,6 +204,7 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:src="@drawable/ic_help_outline_24"
+        android:background="@drawable/botones_default"
         custom:layout_constraintBottom_toBottomOf="parent"
         custom:layout_constraintEnd_toEndOf="parent"
         custom:layout_constraintHorizontal_bias="0.986"
@@ -216,6 +217,7 @@
     <!-- ayuda -->
     <FrameLayout
         android:id="@+id/contenedorFragmentSudoku"
+        android:background="@drawable/fragments_default"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         custom:layout_constraintBottom_toBottomOf="parent"

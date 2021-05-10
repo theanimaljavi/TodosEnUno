@@ -455,9 +455,7 @@ public class brisca_jugar extends AppCompatActivity {
                 cartaMano3.setEnabled(false);
                 //jugar
                 tvTurno.setVisibility(View.VISIBLE);
-
-                    cartaMano3.setVisibility(View.INVISIBLE);
-
+                cartaMano3.setVisibility(View.INVISIBLE);
                 cartaElegidaJugador = cartasJugador.get(2);
                 //imagen que vamos a colocar
                 URL = cartaElegidaJugador.getImagen();
@@ -679,44 +677,14 @@ public class brisca_jugar extends AppCompatActivity {
                 //manejador para que se vea correctamente entre ver la nueva carta de la IA y la que lanza en caso de ganar la mano
                 final Runnable rInicioIA = new Runnable() {
                     public void run() {
-                        //La "O" será el contador para sacar las cartas cuando ya no haya más cartas para sacar
-                        //  si "o" es 0 seguirá teniendo la opción entre 3 cartas posibles
-                        if (o==0){
-                            int numeroRandomInicialIA = r.nextInt(3);
-                            // desactivar la imagen que vamos a mostrar
-                            if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
-                            if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
-                            if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
-                            // coger una carta random y ponerla en la mesa
-                            cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
-                            //mostrar la carta elegida para la IA
-                            URL = cartaElegidaIA.getImagen();
-                            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
-                            cartaMesaIA.setVisibility(View.VISIBLE);
-                            // solo quedan 2 cartas, seleccionar una carta aleatoria
-                        }else if (o==1){
-                            int numeroRandomInicialIA = r.nextInt(2);
-                            // desactivar la imagen que vamos a mostrar
-                            if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
-                            if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
-                            // coger una carta random y ponerla en la mesa
-                            cartaElegidaIA = cartasIA1.get(numeroRandomInicialIA);
-                            //mostrar la carta elegida para la IA
-                            URL = cartaElegidaIA.getImagen();
-                            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
-                            cartaMesaIA.setVisibility(View.VISIBLE);
-                        }else if (o==2){
-                            // coger la última carta que queda
-                            cartaElegidaIA = cartasIA1.get(0);
-                            //mostrar la carta elegida para la IA
-                            URL = cartaElegidaIA.getImagen();
-                            Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
-                            cartaMesaIA.setVisibility(View.VISIBLE);
-                        }
-                        tvTurno.setVisibility(View.VISIBLE);
+                        cartaElegidaIA = algoritmoIAInicia();
+                        //activar los botones
+                        cartaMano1.setEnabled(true);
+                        cartaMano2.setEnabled(true);
+                        cartaMano3.setEnabled(true);
                     }
                 };
-                handler.postDelayed(rInicioIA, 1500);
+                handler.postDelayed(rInicioIA, 1200);
             // el siguiente turno será final de ronda
             finRonda = true;
         }
@@ -1286,6 +1254,90 @@ public class brisca_jugar extends AppCompatActivity {
         return ganador;
     }
 
+    // si IA gana Ronda, IA intentará no soltar ni AS ni TRES, si tuviera las 3 cartas entre estas dos posibilidades, tira random
+    public Cartas  algoritmoIAInicia(){
+        Cartas cartaIA=null;
+        Cartas cartaIANi3Ni1=null;
+        Random r = new Random();
+        //bucle para saber si IA tiene AS o TRES
+        for (int i = 0; i < cartasIA1.size(); i++) {
+            //guardar carta si IA tiene AS o TRES
+            if (Integer.parseInt(cartasIA1.get(i).getNumero()) == 1 ||
+                    Integer.parseInt(cartasIA1.get(i).getNumero()) ==3){
+                cartaIANi3Ni1 = cartasIA1.get(i);
+            }
+        }
+
+        if (cartaIANi3Ni1==null){
+            //La "O" será el contador para sacar las cartas cuando ya no haya más cartas para sacar
+            //  si "o" es 0 seguirá teniendo la opción entre 3 cartas posibles
+            if (o==0){
+                int numeroRandomInicialIA = r.nextInt(3);
+                // desactivar la imagen que vamos a mostrar
+                if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
+                if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
+                if (numeroRandomInicialIA == 2) cartaIA13.setVisibility(View.INVISIBLE);
+                // coger una carta random y ponerla en la mesa
+                cartaIA = cartasIA1.get(numeroRandomInicialIA);
+                //mostrar la carta elegida para la IA
+                URL = cartaIA.getImagen();
+                Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                cartaMesaIA.setVisibility(View.VISIBLE);
+                // solo quedan 2 cartas, seleccionar una carta aleatoria
+            }else if (o==1){
+                int numeroRandomInicialIA = r.nextInt(2);
+                // desactivar la imagen que vamos a mostrar
+                if (numeroRandomInicialIA == 0) cartaIA11.setVisibility(View.INVISIBLE);
+                if (numeroRandomInicialIA == 1) cartaIA12.setVisibility(View.INVISIBLE);
+                // coger una carta random y ponerla en la mesa
+                cartaIA = cartasIA1.get(numeroRandomInicialIA);
+                //mostrar la carta elegida para la IA
+                URL = cartaIA.getImagen();
+                Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                cartaMesaIA.setVisibility(View.VISIBLE);
+            }else if (o==2){
+                // coger la última carta que queda
+                cartaIA = cartasIA1.get(0);
+                //mostrar la carta elegida para la IA
+                URL = cartaIA.getImagen();
+                Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                cartaMesaIA.setVisibility(View.VISIBLE);
+            }
+            tvTurno.setVisibility(View.VISIBLE);
+
+         //SI IA tiene AS o TRES, intentará primero tirar carta que no sea ninguna de estas dos
+        }else{
+            for (int i = 0; i < cartasIA1.size(); i++) {
+                if (Integer.parseInt(cartasIA1.get(i).getNumero()) != 1 &&
+                        Integer.parseInt(cartasIA1.get(i).getNumero()) != 3) {
+                    // coger una carta random y ponerla en la mesa
+                    cartaIA = cartasIA1.get(i);
+                    //mostrar la carta elegida para la IA
+                    URL = cartaIA.getImagen();
+                    Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                    cartaMesaIA.setVisibility(View.VISIBLE);
+                    //tirar carta directamente ya que no es AS ni TRES
+                    return cartaIA;
+                }else{
+                    // coger una carta random y ponerla en la mesa
+                    cartaIA = cartasIA1.get(i);
+                    //mostrar la carta elegida para la IA
+                    URL = cartaIA.getImagen();
+                    Picasso.with(getApplicationContext()).load(URL).into(cartaMesaIA);
+                    cartaMesaIA.setVisibility(View.VISIBLE);
+                }
+            }
+        }
+        //comprobación qué debería ser temporal
+        //  si nada funciona y para evitar errores la IA tirará la primera carta de la mano
+        if (cartaIA==null && cartasIA1.size()>0){
+            cartaIA = cartasIA1.get(0);
+        }
+        return cartaIA;
+    }
+
+
+    //IA tendrá unos parámetros para decidir q carta tirar en muchas posibilidades implementadas cuando el jugador empieza primero
     public Cartas algoritmoIA() {
         //
         //********************************************
@@ -1294,7 +1346,6 @@ public class brisca_jugar extends AppCompatActivity {
         /* BUGS
             -JUGADOR TIRA 5 DE BASTOS, IA TIENE REY DE BASTOS Y TIRA CARTA DE OTRO PALO QUE NO ES GANADOR // YA DEBERIA ESTAR ARREGLADO ¡COMPROBAR!
             -JUGADOR TIRA 7 DE OROS (NO ES PALO GANADOR), IA TIENE REY DE OROS, PETA
-            -POSIBLE BUG: JUGADOR TIRA CARTA PALO, LA IA TIENE LAS 3 CARTA PALO, PETA
         */
         //********************************************
         /*MEJORAR ALGORITMO
@@ -1664,7 +1715,7 @@ public class brisca_jugar extends AppCompatActivity {
             }
         }
         //comprobación qué debería ser temporal
-        //  si nada funciona y para evitar errores la IA tirará una carta aleatoria
+        //  si nada funciona y para evitar errores la IA tirará la primera carta de la mano
         if (cartaIA==null){
             cartaIA = cartasIA1.get(0);
         }

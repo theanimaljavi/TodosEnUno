@@ -271,6 +271,7 @@
         android:id="@+id/ibAyudaBrisca"
         android:layout_width="48dp"
         android:layout_height="48dp"
+        android:background="@drawable/botones_default"
         android:src="@drawable/ic_help_outline_24"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -286,13 +287,11 @@
         android:id="@+id/contenedorFragmentBrisca"
         android:layout_width="370dp"
         android:layout_height="684dp"
+        android:background="@drawable/fragments_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
-
     </FrameLayout>
 
 

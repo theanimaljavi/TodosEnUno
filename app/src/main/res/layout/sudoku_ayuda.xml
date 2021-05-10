@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#9EF4EC"
+    android:backgroundTint="#9EF4EC"
+    android:background="@drawable/fragments_default"
     tools:context=".Sudoku.sudoku_fragment_ayuda">
 
     <TextView
@@ -308,6 +309,7 @@
 
         android:backgroundTint="#53EAD2"
         android:src="@drawable/ic_close_24"
+        android:background="@drawable/botones_default"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
