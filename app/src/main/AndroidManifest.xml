@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TodosEnUno">
+        <activity android:name=".TRESenRaya.tresEnRaya_Nombres"></activity>
+        <activity android:name=".TRESenRaya.tresEnRaya_jugar" />
         <activity android:name=".Sudoku.sudoku_jugar" />
         <activity android:name=".Brisca.brisca_jugar" />
         <activity android:name=".Ahorcado.DosJugadores" />

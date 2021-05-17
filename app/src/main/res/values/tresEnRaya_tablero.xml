@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="tresEnRaya_tablero">
+        <attr name="colorTableroTRES" format="color"/>
+        <attr name="colorX" format="color"/>
+        <attr name="colorO" format="color"/>
+        <attr name="colorGanador" format="color"/>
+    </declare-styleable>
+
+</resources>

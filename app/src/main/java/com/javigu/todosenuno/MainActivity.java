@@ -77,39 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         switch (item.getItemId()){
-
-            //ADMINISTRADOR
-            case R.id.admin:
-                //poner un editText en un alert dialog para verificar permisos
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle("Escriba la contraseña de administrador.");
-
-                // Set up the input
-                final EditText input = new EditText(this);
-                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
-                input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                builder.setView(input);
-
-                // Set up the buttons
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        adminAlert = input.getText().toString();
-                    }
-                });
-                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                //mostrar alert dialog
-                builder.show();
-
-
-                break;
-
             //ELEGIRJUEGO
             case R.id.elegirjuego:
                 Intent intent = new Intent (this, ElegirJuego.class);

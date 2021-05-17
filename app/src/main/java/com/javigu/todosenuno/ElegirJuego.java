@@ -15,10 +15,11 @@ import com.javigu.todosenuno.Ahorcado.DosJugadores;
 import com.javigu.todosenuno.Ahorcado.ElegirTematica;
 import com.javigu.todosenuno.Brisca.brisca_jugar;
 import com.javigu.todosenuno.Sudoku.sudoku_jugar;
+import com.javigu.todosenuno.TRESenRaya.tresEnRaya_Nombres;
 
 public class ElegirJuego extends AppCompatActivity {
     TextView tvAhorcado,tvBrisca;
-    ImageButton ibAhorcado, ibSudoku;
+    ImageButton ibAhorcado, ibSudoku, ib3enRaya;
     LottieAnimationView lavBrisca;
 
     @Override
@@ -32,6 +33,7 @@ public class ElegirJuego extends AppCompatActivity {
         ibAhorcado = findViewById(R.id.ibAhorcado);
         ibSudoku = findViewById(R.id.ibSudoku);
         lavBrisca = findViewById(R.id.ibBrisca);
+        ib3enRaya = findViewById(R.id.ib3enRaya);
 
 
         //navegar entre fragments al selecciona juego
@@ -83,6 +85,17 @@ public class ElegirJuego extends AppCompatActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(intent,0);
 
+
+            }
+        });
+
+        //elegir juego 3 en raya
+        ib3enRaya.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), tresEnRaya_Nombres.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(intent,0);
 
             }
         });

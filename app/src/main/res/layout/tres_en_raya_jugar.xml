@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".TRESenRaya.tresEnRaya_jugar">
+
+    <TextView
+        android:id="@+id/tv3enRayaTurno"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Turno: "
+        android:textSize="18sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <com.javigu.todosenuno.TRESenRaya.tresEnRaya_tablero
+        android:id="@+id/tresEnRaya_tablero"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="108dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        custom:colorTableroTRES="#000000"
+        custom:colorX="#E5A6F1"
+        custom:colorO="#FFEAD58A"/>
+
+    <Button
+        android:id="@+id/btn3enRayaSeguirJugando"
+        android:layout_width="212dp"
+        android:layout_height="58dp"
+        android:text="Jugar de nuevo"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tresEnRaya_tablero">
+
+    </Button>
+</androidx.constraintlayout.widget.ConstraintLayout>

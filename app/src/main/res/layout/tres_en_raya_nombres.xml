@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo_vertical_reverse"
+    tools:context=".TRESenRaya.tresEnRaya_Nombres">
+
+    <VideoView
+        android:id="@+id/vv3EnRaya"
+        android:layout_width="224dp"
+        android:layout_height="178dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.025">
+
+    </VideoView>
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="207dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginTop="248dp"
+        android:background="@drawable/fragments_default"
+        android:backgroundTint="#A6F1E0"
+        android:gravity="center"
+        android:text="Jugador 1"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/et3jugador1"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:hint="Introduce un nombre: "
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.417"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="0.021">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="207dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="392dp"
+        android:background="@drawable/fragments_default"
+        android:backgroundTint="#F491A5"
+        android:gravity="center"
+        android:text="Jugador 2"
+        android:textColor="#6FE8CD"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
+
+    <EditText
+        android:id="@+id/et3jugador2"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="188dp"
+        android:hint="Introduce un nombre: "
+        android:textColor="@color/black"
+        android:textColorHint="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/btn3enRayaJugar"
+        android:layout_width="200dp"
+        android:layout_height="40dp"
+        android:text="Jugar"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et3jugador2"
+        app:layout_constraintVertical_bias="0.306">
+
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
