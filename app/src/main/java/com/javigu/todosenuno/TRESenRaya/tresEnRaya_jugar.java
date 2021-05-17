@@ -57,9 +57,9 @@ public class tresEnRaya_jugar extends AppCompatActivity {
                 startActivityForResult(intent, 0);
                 //actualizar el tvTurno cuando empieza el juego de nuevo
                 if (tvTurno.getText().toString().equalsIgnoreCase("Turno: "+jugadores[0])){
-                    Toast.makeText(tresEnRaya_jugar.this, "Último movimiento de "+jugadores[0]+", empieza "+jugadores[1], Toast.LENGTH_SHORT).show();
-                }else{
                     Toast.makeText(tresEnRaya_jugar.this, "Último movimiento de "+jugadores[1]+", empieza "+jugadores[0], Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(tresEnRaya_jugar.this, "Último movimiento de "+jugadores[0]+", empieza "+jugadores[1], Toast.LENGTH_SHORT).show();
                 }
                 objectTablero.invalidate();
             }

@@ -26,14 +26,13 @@ public class tresEnRaya_tablero extends View {
 
     private final Paint paint = new Paint();
 
-    private boolean lineaGanadora = false;
+    private boolean lineaGanadora;
 
     private final tresEnRaya_Logica tablero;
     private final tresEnRaya_Nombres turno;
     private int []array_copia;
 
     private int cellSize = getWidth()/3;
-    private int primeraMarca;
     private int row;
     private int col;
 
@@ -42,9 +41,8 @@ public class tresEnRaya_tablero extends View {
     private boolean X1;
     private boolean O1;
 
-    //TRABAJAR:
-    // EL CANVA TIENE QUE RELLENAR LOS ESPACIOS POR CADA MOVIMIENTO, ES DECIR LIMPIA Y RELLENA TODAS LAS MARCAS + LA NUEVA
-    // PORLBEMA CON LA PRIMERA INTERACCION: HACER METODO?
+    //MEJORAR?:
+    // el toast  cuando reinicia el juego si nunca hubo movimiento cambia de turno y no actualiza bien
 
     public tresEnRaya_tablero(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -56,6 +54,7 @@ public class tresEnRaya_tablero extends View {
         unaVezTurno=false;
         X1=false;
         O1=false;
+        lineaGanadora = false;
         array_copia = new int[2];
 
         //asignar el archivo xml de estilos
@@ -93,6 +92,11 @@ public class tresEnRaya_tablero extends View {
         dibujarTablero(canvas);
         if (dibujar){
             dibujarPorTurnos(canvas);
+        }
+
+        if (lineaGanadora){
+            paint.setColor(colorGanador);
+            dibujarGanador(canvas);
         }
     }
 
@@ -250,6 +254,53 @@ public class tresEnRaya_tablero extends View {
                         (float) ((row*cellSize + cellSize) - cellSize*0.2),
                         paint);
     }
+
+    //dibujar una línea horizontal cuando haya un ganador
+    private void dibujarHori(Canvas canvas , int row, int col){
+        canvas.drawLine(col, row*cellSize + (float)cellSize/2,
+                 cellSize*3, row*cellSize + (float)cellSize/2,
+                        paint);
+    }
+
+    //dibujar una línea vertical cuando haya un ganador
+    private void dibujarVerti(Canvas canvas , int row, int col){
+        canvas.drawLine(col*cellSize + (float)cellSize/2, row,
+                    col*cellSize + (float)cellSize/2,
+                    cellSize*3,
+                           paint);
+    }
+
+    //dibujar una línea diagonal positivo (empenzando arriba derecha, acaba abajo izquierda)
+    // cuando haya un ganador
+    private void dibujarDiagPos(Canvas canvas){
+        canvas.drawLine(0, cellSize*3,
+                cellSize*3,0,
+                        paint);
+    }
+
+    //dibujar una línea diagonal negativo (empenzando arriba izquierda, acaba abajo derecha)
+    // cuando haya un ganador
+    private void dibujarDiagNeg(Canvas canvas){
+        canvas.drawLine(0, 0,
+                cellSize*3,cellSize*3,
+                        paint);
+    }
+
+    //dibujar linea dependiendo de las posiciones del ganador
+    private void dibujarGanador(Canvas canvas){
+        int row = tablero.getGanador()[0];
+        int col = tablero.getGanador()[1];
+        if (tablero.getGanador()[2]==1){
+            dibujarHori(canvas, row , col);
+        }else if (tablero.getGanador()[2]==2){
+            dibujarVerti(canvas, row, col);
+        }else if (tablero.getGanador()[2]==3){
+            dibujarDiagNeg(canvas);
+        }else{
+            dibujarDiagPos(canvas);
+        }
+    }
+
 
     //método para organizar la configuración del juego
     public void configurarJuego(Button btnPlay, TextView jugador, String[] nombres){
