@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/parejas_elegir_dificultad"
+    tools:context=".ParejasPerfectas.parejasPerfectas_dificultad">
+
+    <Button
+        android:id="@+id/btnParejasFacil"
+        android:layout_width="259dp"
+        android:layout_height="55dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="Fácil"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnParejasNormal"
+        android:layout_width="259dp"
+        android:layout_height="55dp"
+        android:text="Normal"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.618">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnParejasDificil"
+        android:layout_width="259dp"
+        android:layout_height="55dp"
+        android:text="Difícil"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.738">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnParejasElegirJuego"
+        android:layout_width="259dp"
+        android:layout_height="55dp"
+        android:text="Elegir Juego"
+        android:textColor="@color/black"
+        android:background="@drawable/borde"
+        android:src="@drawable/borde"
+        android:backgroundTint="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.911">
+
+    </Button>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

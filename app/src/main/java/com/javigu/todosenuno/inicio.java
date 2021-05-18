@@ -85,7 +85,7 @@ public class inicio extends Fragment {
         btnInicio = view.findViewById(R.id.btnInicio);
 
         //reproducir el video
-        String path = "android.resource://com.javigu.todosenuno/" + R.raw.logo;
+        String path = "android.resource://com.javigu.todosenuno/" + R.raw.video_logo_teu;
         vvLogo.setVideoURI(Uri.parse(path));
         vvLogo.start();
         vvLogo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
