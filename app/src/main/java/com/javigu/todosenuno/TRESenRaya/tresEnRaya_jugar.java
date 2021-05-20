@@ -22,6 +22,7 @@ public class tresEnRaya_jugar extends AppCompatActivity {
 
     tresEnRaya_tablero objectTablero;
     Button btnSeguirJugando;
+    static Button btnElegirJuego;
     TextView tvTurno;
     String[] jugadores;
 
@@ -32,6 +33,9 @@ public class tresEnRaya_jugar extends AppCompatActivity {
 
         objectTablero = findViewById(R.id.tresEnRaya_tablero);
         btnSeguirJugando = findViewById(R.id.btn3enRayaSeguirJugando);
+        btnElegirJuego = findViewById(R.id.btn3enRayaElegirJuegoJugar);
+        //desactivar boton
+        btnElegirJuego.setVisibility(View.GONE);
         tvTurno = findViewById(R.id.tv3enRayaTurno);
 
         //obtener el array de jugadores de los nombres
@@ -62,6 +66,15 @@ public class tresEnRaya_jugar extends AppCompatActivity {
                     Toast.makeText(tresEnRaya_jugar.this, "Último movimiento de "+jugadores[0]+", empieza "+jugadores[1], Toast.LENGTH_SHORT).show();
                 }
                 objectTablero.invalidate();
+            }
+        });
+
+        btnElegirJuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ElegirJuego.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(intent,0);
             }
         });
     }

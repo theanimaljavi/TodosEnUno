@@ -55,7 +55,7 @@
     </Button>
 
     <Button
-        android:id="@+id/btnParejasElegirJuego"
+        android:id="@+id/btnParejasDificultadElegirJuego"
         android:layout_width="259dp"
         android:layout_height="55dp"
         android:text="Elegir Juego"

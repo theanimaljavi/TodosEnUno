@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/juegos_fondo"
+    tools:context=".ParejasPerfectas.parejas_fragment_facil">
+
+    <ImageButton
+        android:id="@+id/ibFacil1"
+        android:layout_width="139dp"
+        android:layout_height="151dp"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.093">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibFacil2"
+        android:layout_width="139dp"
+        android:layout_height="151dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/parejas_perfectas_carta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.093">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibFacil3"
+        android:layout_width="139dp"
+        android:layout_height="151dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/parejas_perfectas_carta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibFacil4"
+        android:layout_width="139dp"
+        android:layout_height="151dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/parejas_perfectas_carta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.425">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibFacil5"
+        android:layout_width="139dp"
+        android:layout_height="151dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/parejas_perfectas_carta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.775">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibFacil6"
+        android:layout_width="139dp"
+        android:layout_height="151dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/parejas_perfectas_carta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.775">
+
+    </ImageButton>
+
+    <!-- botón ayuda -->
+
+
+    <TextView
+        android:id="@+id/tvParejasFacilErrores"
+        android:layout_width="226dp"
+        android:layout_height="41dp"
+        android:background="@drawable/borde"
+        android:gravity="center"
+        android:text="Errores: "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01">
+
+    </TextView>
+
+    <ImageButton
+        android:id="@+id/ibAyudaParejasFacil"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/botones_default"
+        android:src="@drawable/ic_help_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tvParejasFacilFinal"
+        android:layout_width="199dp"
+        android:layout_height="45dp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnParejasFacilReiniciar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.982">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/btnParejasFacilReiniciar"
+        android:layout_width="186dp"
+        android:layout_height="52dp"
+        android:background="@drawable/botones_default"
+        android:text="Reiniciar"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnParejasFacilElegirDificultad"
+        android:layout_width="186dp"
+        android:layout_height="52dp"
+        android:background="@drawable/botones_default"
+        android:text="Elegir Dificultad"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
+
+    </Button>
+
+    <!-- ganador y ayuda-->
+    <FrameLayout
+        android:id="@+id/contenedorFragmentParejasAyuda"
+        android:layout_width="370dp"
+        android:layout_height="684dp"
+        android:background="@drawable/fragments_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

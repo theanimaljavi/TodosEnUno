@@ -16,8 +16,10 @@ import android.widget.VideoView;
 
 import com.javigu.todosenuno.Ahorcado.DosJugadores;
 import com.javigu.todosenuno.Ahorcado.ElegirTematica;
+import com.javigu.todosenuno.ElegirJuego;
 import com.javigu.todosenuno.MainActivity;
 import com.javigu.todosenuno.R;
+import com.javigu.todosenuno.Sudoku.sudoku_jugar;
 
 import java.util.Random;
 
@@ -25,7 +27,7 @@ public class tresEnRaya_Nombres extends AppCompatActivity {
 
     VideoView vv3enRaya;
     EditText etJ1, etJ2;
-    Button btnJugar;
+    Button btnJugar, btnElegirJuego;
     private static String jugador1 = "";
     private static String jugador2 = "";
     static String[] jugadores = new String[2];
@@ -42,6 +44,7 @@ public class tresEnRaya_Nombres extends AppCompatActivity {
         etJ1 = findViewById(R.id.et3jugador1);
         etJ2 = findViewById(R.id.et3jugador2);
         btnJugar = findViewById(R.id.btn3enRayaJugar);
+        btnElegirJuego = findViewById(R.id.btn3enRayaElegirJuego);
 
         //ruta el video
         String path = "android.resource://com.javigu.todosenuno/" + R.raw.tres_en_raya;
@@ -101,6 +104,15 @@ public class tresEnRaya_Nombres extends AppCompatActivity {
                 }else{
                     Toast.makeText(tresEnRaya_Nombres.this, "Rellena los dos campos.", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        btnElegirJuego.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ElegirJuego.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivityForResult(intent,0);
             }
         });
     }

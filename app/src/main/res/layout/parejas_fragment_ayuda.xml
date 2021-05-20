@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fragments_default"
+    android:backgroundTint="#97A6F1"
+    tools:context=".ParejasPerfectas.parejas_fragment_ayuda">
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="129dp"
+        android:layout_height="25dp"
+        android:layout_gravity="center"
+        android:text="¿Cómo Jugar?"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="381dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="60dp"
+        android:gravity="center"
+        android:text="El juego consiste en encontrar dos parejas de frutas iguales, para ello hay que pulsar en una carta para descubrir que carta tenemos, una vez tenemos una fruta, elegiremos otra para ver si coincide.."
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15">
+
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="382dp"
+        android:layout_height="34dp"
+        android:gravity="center"
+        android:text="Si coinciden habrá que buscar otra pareja de frutas, sino, tendremos un error, con 3 errores perderemos el juego."
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18"
+        app:layout_constraintVertical_bias="0.048">
+
+    </TextView>
+
+
+    <ImageView
+        android:id="@+id/fresa2"
+        android:layout_width="93dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/parejas_fresa"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintStart_toEndOf="@+id/fresa1"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="157dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="359dp"
+        android:gravity="center"
+        android:text="Pareja encontrada!"
+        android:textColor="#4E8C19"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/fresa1"
+        android:layout_width="93dp"
+        android:layout_height="94dp"
+        android:layout_marginTop="32dp"
+        android:src="@drawable/parejas_fresa"
+        app:layout_constraintBottom_toTopOf="@+id/textView13"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.305"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageView>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="87dp"
+        android:layout_height="39dp"
+        android:gravity="center"
+        android:text="Error"
+        android:textColor="#E44641"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.799">
+
+    </TextView>
+
+    <ImageView
+        android:id="@+id/melon"
+        android:layout_width="93dp"
+        android:layout_height="94dp"
+        android:src="@drawable/parejas_melon"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toStartOf="@+id/naranja"
+        app:layout_constraintHorizontal_bias="0.875"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.672">
+
+    </ImageView>
+
+    <ImageView
+        android:id="@+id/naranja"
+        android:layout_width="93dp"
+        android:layout_height="94dp"
+        android:layout_marginEnd="96dp"
+        android:src="@drawable/parejas_naranjas"
+        app:layout_constraintBottom_toTopOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"
+        app:layout_constraintVertical_bias="0.672">
+
+    </ImageView>
+
+    <ImageButton
+        android:id="@+id/ibCerrarAyudaParejasPerfectas"
+        android:layout_width="63dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/botones_default"
+        android:backgroundTint="#6879E4"
+        android:src="@drawable/ic_close_24"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ImageButton>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

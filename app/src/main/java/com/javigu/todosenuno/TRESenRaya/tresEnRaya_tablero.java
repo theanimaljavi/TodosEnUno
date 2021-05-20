@@ -118,6 +118,7 @@ public class tresEnRaya_tablero extends View {
                     //comprobar si hay ganador
                     if (tablero.ganador()){
                         lineaGanadora = true;
+                        tresEnRaya_jugar.btnElegirJuego.setVisibility(VISIBLE);
                         invalidate();
                     }
 

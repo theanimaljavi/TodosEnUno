@@ -49,8 +49,27 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tresEnRaya_tablero">
+        app:layout_constraintTop_toBottomOf="@+id/tresEnRaya_tablero"
+        app:layout_constraintVertical_bias="0.207">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btn3enRayaElegirJuegoJugar"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/botones_default"
+        android:text="Elegir Juego"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent">
 
     </Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
