@@ -38,7 +38,7 @@ public class parejasPerfectas_dificultad extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), parejasPerfectas_jugar.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("parejas_dificultad", "Normal");
+                intent.putExtra("parejas_dificultad", "normal");
                 startActivityForResult(intent,0);
             }
         });
