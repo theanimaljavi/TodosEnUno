@@ -1,14 +1,300 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/juegos_fondo"
     tools:context=".ParejasPerfectas.parejas_fragment_normal">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <ImageButton
+        android:id="@+id/ibNormal1"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.107"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.104">
 
-</FrameLayout>
+    </ImageButton>
+
+
+    <ImageButton
+        android:id="@+id/ibNormal2"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.104">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal3"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.104">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal4"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.309">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal5"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.309">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal6"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.309">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal7"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal8"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal9"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal10"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.106"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.699">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal11"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.699">
+
+    </ImageButton>
+
+    <ImageButton
+        android:id="@+id/ibNormal12"
+        android:layout_width="93dp"
+        android:layout_height="92dp"
+        android:adjustViewBounds="true"
+        android:background="@drawable/parejas_perfectas_carta"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.908"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.699">
+
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tvParejasFacilErrores"
+        android:layout_width="226dp"
+        android:layout_height="41dp"
+        android:background="@drawable/borde"
+        android:gravity="center"
+        android:text="Errores: "
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01">
+
+    </TextView>
+
+    <!-- botón ayuda -->
+
+    <ImageButton
+        android:id="@+id/ibAyudaParejasFacil"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/botones_default"
+        android:src="@drawable/ic_help_outline_24"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+    </ImageButton>
+
+    <TextView
+        android:id="@+id/tvParejasFacilFinal"
+        android:layout_width="199dp"
+        android:layout_height="45dp"
+        android:textStyle="bold"
+        android:textColor="@color/red"
+        android:textSize="18sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/btnParejasFacilReiniciar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.982">
+
+    </TextView>
+
+    <Button
+        android:id="@+id/btnParejasFacilReiniciar"
+        android:layout_width="186dp"
+        android:layout_height="52dp"
+        android:background="@drawable/botones_default"
+        android:text="Reiniciar"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.928"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
+
+    </Button>
+
+    <Button
+        android:id="@+id/btnParejasFacilElegirDificultad"
+        android:layout_width="186dp"
+        android:layout_height="52dp"
+        android:background="@drawable/botones_default"
+        android:text="Elegir Dificultad"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976">
+
+    </Button>
+
+    <FrameLayout
+        android:id="@+id/contenedorFragmentParejasAyuda"
+        android:layout_width="370dp"
+        android:layout_height="684dp"
+        android:background="@drawable/fragments_default"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="25dp">
+     </FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

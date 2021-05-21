@@ -35,6 +35,8 @@ public class parejas_fragment_facil extends Fragment {
     private int contador=0, errores;
     private int id1 = 0,id2=0;
     private Handler handler = new Handler();
+    private boolean juegoFinalizado;
+    private int botonRepetido;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -98,6 +100,8 @@ public class parejas_fragment_facil extends Fragment {
         tvErorres = view.findViewById(R.id.tvParejasFacilErrores);
         errores = 0;
         tvErorres.setText("Errores: "+errores+"/3");
+        juegoFinalizado = false;
+        botonRepetido = 0;
 
         //array para saber si ha ganado el juego
         ganador = 0;
@@ -190,8 +194,11 @@ public class parejas_fragment_facil extends Fragment {
                 int resID = getResources().getIdentifier(url[0] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).into(ib1);
-                //aumentar el contador
-                contador++;
+                if (botonRepetido != 1) {
+                    //aumentar el contador si el botón no se repite
+                    contador++;
+                    botonRepetido = 1;
+                }
                 comprobarParejas();
             }
         });
@@ -203,8 +210,11 @@ public class parejas_fragment_facil extends Fragment {
                 int resID = getResources().getIdentifier(url[1] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).into(ib2);
-                //aumentar el contador
-                contador++;
+                if (botonRepetido != 2) {
+                    //aumentar el contador si el botón no se repite
+                    contador++;
+                    botonRepetido = 2;
+                }
                 comprobarParejas();
             }
         });
@@ -216,8 +226,11 @@ public class parejas_fragment_facil extends Fragment {
                 int resID = getResources().getIdentifier(url[2] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).into(ib3);
-                //aumentar el contador
-                contador++;
+                if (botonRepetido != 3) {
+                    //aumentar el contador si el botón no se repite
+                    contador++;
+                    botonRepetido = 3;
+                }
                 comprobarParejas();
             }
         });
@@ -229,8 +242,11 @@ public class parejas_fragment_facil extends Fragment {
                 int resID = getResources().getIdentifier(url[3] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).into(ib4);
-                //aumentar el contador
-                contador++;
+                if (botonRepetido != 4) {
+                    //aumentar el contador si el botón no se repite
+                    contador++;
+                    botonRepetido = 4;
+                }
                 comprobarParejas();
             }
         });
@@ -242,8 +258,11 @@ public class parejas_fragment_facil extends Fragment {
                 int resID = getResources().getIdentifier(url[4] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).into(ib5);
-                //aumentar el contador
-                contador++;
+                if (botonRepetido != 5) {
+                    //aumentar el contador si el botón no se repite
+                    contador++;
+                    botonRepetido = 5;
+                }
                 comprobarParejas();
             }
         });
@@ -255,8 +274,11 @@ public class parejas_fragment_facil extends Fragment {
                 int resID = getResources().getIdentifier(url[5] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).into(ib6);
-                //aumentar el contador
-                contador++;
+                if (botonRepetido != 6) {
+                    //aumentar el contador si el botón no se repite
+                    contador++;
+                    botonRepetido = 6;
+                }
                 comprobarParejas();
             }
         });
@@ -297,8 +319,9 @@ public class parejas_fragment_facil extends Fragment {
         if (contador == 2){
             //resetear variable
             contador = 0;
+            botonRepetido = 0;
             //comprobar las url
-            // guardas las 2 url's y sus posiciones
+            // guardar las 2 url's y sus posiciones
             String imagen1 = null,imagen2 = null;
             //recorrer un bucle para guardar las dos urls y sus botones
             for (int i=0;i<6;i++){
@@ -350,6 +373,7 @@ public class parejas_fragment_facil extends Fragment {
                         }
                         //si ganador es igual a 6, significa q ha ganador el juego
                         if (ganador == 6){
+                            juegoFinalizado=true;
                             tvFinal.setVisibility(View.VISIBLE);
                             tvFinal.setTextColor(getResources().getColor(R.color.dark_green));
                             tvFinal.setText("Has Ganado!");
@@ -401,6 +425,7 @@ public class parejas_fragment_facil extends Fragment {
                 tvErorres.setText("Errores: "+errores+"/3");
                 //si lleva 3 errores, el juego se dará por finalizado
                 if (errores == 3){
+                    juegoFinalizado=true;
                     tvFinal.setVisibility(View.VISIBLE);
                     tvFinal.setText("Has Perdido!");
                     btnReinciar.setVisibility(View.VISIBLE);
@@ -413,6 +438,50 @@ public class parejas_fragment_facil extends Fragment {
                     ib5.setEnabled(false);
                     ib6.setEnabled(false);
                 }
+            }
+            //si el juego no ha terminado se desactivan los botones y se activan pasado un tiempo
+            if (!juegoFinalizado) {
+                //desactivar botones ya que no se puede seguir jugando
+                ib1.setEnabled(false);
+                ib2.setEnabled(false);
+                ib3.setEnabled(false);
+                ib4.setEnabled(false);
+                ib5.setEnabled(false);
+                ib6.setEnabled(false);
+                //activar botones de nuevo al final de las transiciones
+                final Runnable rBotonesActivar = new Runnable() {
+                    public void run() {
+                        //desactivar botones ya que no se puede seguir jugando
+                        ib1.setEnabled(true);
+                        ib2.setEnabled(true);
+                        ib3.setEnabled(true);
+                        ib4.setEnabled(true);
+                        ib5.setEnabled(true);
+                        ib6.setEnabled(true);
+                    }
+                };
+                handler.postDelayed(rBotonesActivar, 1700);
+            }
+            //si contador no es 2, se desactivará el botón que ya esta pulsado
+        }else{
+            //desactivar los botones que correspondan
+            if (botonRepetido == 1) {
+                ib1.setEnabled(false);
+            }
+            if (botonRepetido == 2) {
+                ib2.setEnabled(false);
+            }
+            if (botonRepetido == 3) {
+                ib3.setEnabled(false);
+            }
+            if (botonRepetido == 4) {
+                ib4.setEnabled(false);
+            }
+            if (botonRepetido == 5) {
+                ib5.setEnabled(false);
+            }
+            if (botonRepetido == 6) {
+                ib6.setEnabled(false);
             }
         }
     }
