@@ -218,7 +218,7 @@
     <!-- botón ayuda -->
 
     <ImageButton
-        android:id="@+id/ibAyudaParejasFacil"
+        android:id="@+id/ibAyudaParejasNormal"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:background="@drawable/botones_default"

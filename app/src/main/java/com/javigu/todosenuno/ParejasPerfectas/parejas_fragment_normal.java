@@ -94,7 +94,7 @@ public class parejas_fragment_normal extends Fragment {
         ib10 = view.findViewById(R.id.ibNormal10);
         ib11 = view.findViewById(R.id.ibNormal11);
         ib12 = view.findViewById(R.id.ibNormal12);
-        ibAyuda = view.findViewById(R.id.ibAyudaParejasFacil);
+        ibAyuda = view.findViewById(R.id.ibAyudaParejasNormal);
         btnReinciar = view.findViewById(R.id.btnParejasFacilReiniciar);
         btnReinciar.setVisibility(View.GONE);
         btnElegirDificultad = view.findViewById(R.id.btnParejasFacilElegirDificultad);

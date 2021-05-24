@@ -26,8 +26,6 @@ import java.util.Random;
 
 
 //TRABAJAR
-    // IMAGENES NO CUADRAN
-    // COMPROBAR BOTON AYUDA
     // BOTON AYUDA 3ENRAYA?
     // MIRAR PUBLICAR PLAYSTORE
 public class parejas_fragment_dificil extends Fragment {
@@ -94,7 +92,7 @@ public class parejas_fragment_dificil extends Fragment {
         ib9 = view.findViewById(R.id.ibDificil9);ib10 = view.findViewById(R.id.ibDificil10);ib11 = view.findViewById(R.id.ibDificil11);ib12 = view.findViewById(R.id.ibDificil12);
         ib13 = view.findViewById(R.id.ibDificil13);ib14 = view.findViewById(R.id.ibDificil14);ib15 = view.findViewById(R.id.ibDificil15);ib16 = view.findViewById(R.id.ibDificil16);
         ib17 = view.findViewById(R.id.ibDificil17);ib18 = view.findViewById(R.id.ibDificil18);ib19 = view.findViewById(R.id.ibDificil19);ib20 = view.findViewById(R.id.ibDificil20);
-        ibAyuda = view.findViewById(R.id.ibAyudaParejasFacil);
+        ibAyuda = view.findViewById(R.id.ibAyudaParejasDificil);
         btnReinciar = view.findViewById(R.id.btnParejasFacilReiniciar);
         btnReinciar.setVisibility(View.GONE);
         btnElegirDificultad = view.findViewById(R.id.btnParejasFacilElegirDificultad);
@@ -103,7 +101,7 @@ public class parejas_fragment_dificil extends Fragment {
         tvFinal.setVisibility(View.GONE);
         tvErorres = view.findViewById(R.id.tvParejasFacilErrores);
         errores = 0;
-        tvErorres.setText("Errores: "+errores+"/7");
+        tvErorres.setText("Errores: "+errores+"/9");
 
         juegofinalizado = false;
         botonRepetido = 0;
@@ -112,23 +110,23 @@ public class parejas_fragment_dificil extends Fragment {
         //array de booleanos para guardar cuando tenemos pulsado un ImageButton
         url = new String[20];
         //array de string con todas las frutas y animales
-        frutas = new String[]{  "parejas_naranjas","parejas_fresa","parejas_sandia","parejas_uvas","parejas_kiwi",
-                "parejas_aguacate","parejas_mango","parejas_papaya","parejas_melon","parejas_platano",
-                "parejas_coco","parejas_pinya","parejas_manzana"};
-        animales = new String[]{"parejas_ciervo","parejas_conejo","parejas_erizo","parejas_flamenco","parejas_jaguar",
-                "parejas_mariposa","parejas_monkey","parejas_pajaro","parejas_pajaro_maleo","parejas_panda",
-                "parejas_perezoso","parejas_pez_payaso","parejas_zebra"};
+        frutas = new String[]{  "parejas_dificil_naranjas","parejas_dificil_fresa","parejas_dificil_sandia","parejas_dificil_uvas","parejas_dificil_kiwi",
+                "parejas_dificil_aguacate","parejas_dificil_mango","parejas_dificil_papaya","parejas_dificil_melon","parejas_dificil_platano",
+                "parejas_dificil_coco","parejas_dificil_pinya","parejas_dificil_manzana"};
+        animales = new String[]{"parejas_dificil_ciervo","parejas_dificil_conejo","parejas_dificil_erizo","parejas_dificil_flamenco","parejas_dificil_jaguar",
+                "parejas_dificil_mariposa","parejas_dificil_monkey","parejas_dificil_pajaro","parejas_dificil_pajaro_maleo","parejas_dificil_panda",
+                "parejas_dificil_perezoso","parejas_dificil_pez_payaso","parejas_dificil_zebra"};
 
         //array con todos los animales y frutas
         nombres = new String[]{
                 //frutas
-                "parejas_naranjas","parejas_fresa","parejas_sandia","parejas_uvas","parejas_kiwi",
-                "parejas_aguacate","parejas_mango","parejas_papaya","parejas_melon","parejas_platano",
-                "parejas_coco","parejas_pinya","parejas_manzana",
+                "parejas_dificil_naranjas","parejas_dificil_fresa","parejas_dificil_sandia","parejas_dificil_uvas","parejas_dificil_kiwi",
+                "parejas_dificil_aguacate","parejas_dificil_mango","parejas_dificil_papaya","parejas_dificil_melon","parejas_dificil_platano",
+                "parejas_dificil_coco","parejas_dificil_pinya","parejas_dificil_manzana",
                 //animales
-                "parejas_ciervo","parejas_conejo","parejas_erizo","parejas_flamenco","parejas_jaguar",
-                "parejas_mariposa","parejas_monkey","parejas_pajaro","parejas_pajaro_maleo","parejas_panda",
-                "parejas_perezoso","parejas_pez_payaso","parejas_zebra"
+                "parejas_dificil_ciervo","parejas_dificil_conejo","parejas_dificil_erizo","parejas_dificil_flamenco","parejas_dificil_jaguar",
+                "parejas_dificil_mariposa","parejas_dificil_monkey","parejas_dificil_pajaro","parejas_dificil_pajaro_maleo","parejas_dificil_panda",
+                "parejas_dificil_perezoso","parejas_dificil_pez_payaso","parejas_dificil_zebra"
         };
 
         //crear el array de parejas
@@ -301,9 +299,9 @@ public class parejas_fragment_dificil extends Fragment {
                 url[0] = parejas[0];
                 //no se puede almacenar una String = 'R.drawable.X' siendo 'X' una imagen previamente guardada
                 // lo que se hace es recoger el ID que tiene esa imagen con el getIdentifier de la manera siguiente:
-                int resID = getResources().getIdentifier(url[0] , "drawable", getActivity().getPackageName());
+                int resID = getResources().getIdentifier("parejas_dificil_jaguar" , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib1);
+                        .load(resID).fit().centerInside().into(ib1);
                 if (botonRepetido != 1) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -319,7 +317,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[1] = parejas[1];
                 int resID = getResources().getIdentifier(url[1] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib2);
+                        .load(resID).fit().centerCrop().into(ib2);
                 if (botonRepetido != 2) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -335,7 +333,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[2] = parejas[2];
                 int resID = getResources().getIdentifier(url[2] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib3);
+                        .load(resID).fit().centerCrop().into(ib3);
                 if (botonRepetido != 3) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -351,7 +349,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[3] = parejas[3];
                 int resID = getResources().getIdentifier(url[3] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib4);
+                        .load(resID).fit().centerCrop().into(ib4);
                 if (botonRepetido != 4) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -367,7 +365,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[4] = parejas[4];
                 int resID = getResources().getIdentifier(url[4] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib5);
+                        .load(resID).fit().centerCrop().into(ib5);
                 if (botonRepetido != 5) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -383,7 +381,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[5] = parejas[5];
                 int resID = getResources().getIdentifier(url[5] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib6);
+                        .load(resID).fit().centerCrop().into(ib6);
                 if (botonRepetido != 6) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -399,7 +397,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[6] = parejas[6];
                 int resID = getResources().getIdentifier(url[6] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib7);
+                        .load(resID).fit().centerCrop().into(ib7);
                 if (botonRepetido != 7) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -415,7 +413,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[7] = parejas[7];
                 int resID = getResources().getIdentifier(url[7] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib8);
+                        .load(resID).fit().centerCrop().into(ib8);
                 if (botonRepetido != 8) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -431,7 +429,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[8] = parejas[8];
                 int resID = getResources().getIdentifier(url[8] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib9);
+                        .load(resID).fit().centerCrop().into(ib9);
                 if (botonRepetido != 9) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -447,7 +445,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[9] = parejas[9];
                 int resID = getResources().getIdentifier(url[9] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib10);
+                        .load(resID).fit().centerCrop().into(ib10);
                 if (botonRepetido != 10) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -463,7 +461,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[10] = parejas[10];
                 int resID = getResources().getIdentifier(url[10] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib11);
+                        .load(resID).fit().centerCrop().into(ib11);
                 if (botonRepetido != 11) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -479,7 +477,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[11] = parejas[11];
                 int resID = getResources().getIdentifier(url[11] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib12);
+                        .load(resID).fit().centerCrop().into(ib12);
                 if (botonRepetido != 12) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -495,7 +493,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[12] = parejas[12];
                 int resID = getResources().getIdentifier(url[12] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib13);
+                        .load(resID).fit().centerCrop().into(ib13);
                 if (botonRepetido != 13) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -511,7 +509,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[13] = parejas[13];
                 int resID = getResources().getIdentifier(url[13] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib14);
+                        .load(resID).fit().centerCrop().into(ib14);
                 if (botonRepetido != 14) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -527,7 +525,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[14] = parejas[14];
                 int resID = getResources().getIdentifier(url[14] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib15);
+                        .load(resID).fit().centerCrop().into(ib15);
                 if (botonRepetido != 15) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -543,7 +541,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[15] = parejas[15];
                 int resID = getResources().getIdentifier(url[15] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib16);
+                        .load(resID).fit().centerCrop().into(ib16);
                 if (botonRepetido != 16) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -559,7 +557,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[16] = parejas[16];
                 int resID = getResources().getIdentifier(url[16] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib17);
+                        .load(resID).fit().centerCrop().into(ib17);
                 if (botonRepetido != 17) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -575,7 +573,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[17] = parejas[17];
                 int resID = getResources().getIdentifier(url[17] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib18);
+                        .load(resID).fit().centerCrop().into(ib18);
                 if (botonRepetido != 18) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -591,7 +589,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[18] = parejas[18];
                 int resID = getResources().getIdentifier(url[18] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib19);
+                        .load(resID).fit().centerCrop().into(ib19);
                 if (botonRepetido != 19) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -607,7 +605,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[19] = parejas[19];
                 int resID = getResources().getIdentifier(url[19] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
-                        .load(resID).into(ib20);
+                        .load(resID).fit().centerCrop().into(ib20);
                 if (botonRepetido != 20) {
                     //aumentar el contador si el botón no se repite
                     contador++;
@@ -870,9 +868,9 @@ public class parejas_fragment_dificil extends Fragment {
 
                 //si no coinciden, se suma error
                 errores += 1;
-                tvErorres.setText("Errores: "+errores+"/7");
+                tvErorres.setText("Errores: "+errores+"/9");
                 //si lleva 3 errores, el juego se dará por finalizado
-                if (errores == 7){
+                if (errores == 9){
                     juegofinalizado = true;
                     tvFinal.setVisibility(View.VISIBLE);
                     tvFinal.setText("Has Perdido!");
