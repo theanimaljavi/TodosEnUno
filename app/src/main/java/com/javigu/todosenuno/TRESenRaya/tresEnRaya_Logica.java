@@ -1,5 +1,6 @@
 package com.javigu.todosenuno.TRESenRaya;
 
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -105,7 +106,8 @@ public class tresEnRaya_Logica {
             return true;
         }else if (tableroLleno == 9){
             turno.setText("Juego en Tablas!");
-            return true;
+            tresEnRaya_jugar.btnElegirJuego.setVisibility(View.VISIBLE);
+            return false;
         }else{
             return false;
         }

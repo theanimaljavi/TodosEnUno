@@ -78,7 +78,7 @@
         android:layout_height="53dp"
         android:textColor="@color/black"
         android:gravity="center"
-        android:text="Las mejores cartas son (en orden): AS=11puntos, 3=10puntos, Sota=2puntos, Caballo=3puntos, Rey=4puntos."
+        android:text="Las mejores cartas son (en orden): AS=11puntos, 3=10puntos, Rey=4puntos, Caballo=3puntos, Sota=2puntos."
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

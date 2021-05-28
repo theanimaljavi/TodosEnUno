@@ -29,6 +29,7 @@
         android:layout_marginBottom="144dp"
         android:backgroundTint="#060706"
         android:text="Elegir Juego"
+        android:textColor="@color/white"
         android:textSize="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

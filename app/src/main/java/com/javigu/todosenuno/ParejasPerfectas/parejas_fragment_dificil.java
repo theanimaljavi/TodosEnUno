@@ -25,9 +25,7 @@ import java.util.Random;
  */
 
 
-//TRABAJAR
-    // BOTON AYUDA 3ENRAYA?
-    // MIRAR PUBLICAR PLAYSTORE
+
 public class parejas_fragment_dificil extends Fragment {
     private ImageButton ib1,ib2,ib3,ib4,ib5,ib6,ib7,ib8,ib9,ib10,ib11,ib12,ib13,ib14,ib15,ib16,ib17,ib18,ib19,ib20,ibAyuda;
     private Button btnReinciar, btnElegirDificultad;
@@ -299,7 +297,7 @@ public class parejas_fragment_dificil extends Fragment {
                 url[0] = parejas[0];
                 //no se puede almacenar una String = 'R.drawable.X' siendo 'X' una imagen previamente guardada
                 // lo que se hace es recoger el ID que tiene esa imagen con el getIdentifier de la manera siguiente:
-                int resID = getResources().getIdentifier("parejas_dificil_jaguar" , "drawable", getActivity().getPackageName());
+                int resID = getResources().getIdentifier(url[0] , "drawable", getActivity().getPackageName());
                 Picasso.with(getActivity().getApplicationContext())
                         .load(resID).fit().centerInside().into(ib1);
                 if (botonRepetido != 1) {
