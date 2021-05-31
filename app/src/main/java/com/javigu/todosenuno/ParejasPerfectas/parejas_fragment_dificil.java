@@ -34,7 +34,6 @@ public class parejas_fragment_dificil extends Fragment {
     private String[] url;
     private int ganador;
     private int contador=0, errores;
-    private  int nada=0;
     private int id1 = 0,id2=0;
     private Handler handler = new Handler();
     private boolean juegofinalizado;
