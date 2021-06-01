@@ -21,11 +21,6 @@ import com.javigu.todosenuno.Ahorcado.jugarFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    //TRABAJAR
-    // BOTON AYUDA 3ENRAYA?
-    // MIRAR PUBLICAR PLAYSTORE
-    // quitar opcion landsacpe
-
     Button btnMenuSalir;
     Button btnMenuElegirJuego;
     Button btnMenuAdmin;
