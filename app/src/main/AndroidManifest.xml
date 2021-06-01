@@ -13,22 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TodosEnUno">
-        <activity android:name=".ParejasPerfectas.parejasPerfectas_dificultad" />
-        <activity android:name=".ParejasPerfectas.parejasPerfectas_jugar" />
-        <activity android:name=".TRESenRaya.tresEnRaya_Nombres" />
-        <activity android:name=".TRESenRaya.tresEnRaya_jugar" />
-        <activity android:name=".Sudoku.sudoku_jugar" />
-        <activity android:name=".Brisca.brisca_jugar" />
-        <activity android:name=".Ahorcado.DosJugadores" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ParejasPerfectas.parejasPerfectas_dificultad" android:screenOrientation="portrait" />
+        <activity android:name=".ParejasPerfectas.parejasPerfectas_jugar" android:screenOrientation="portrait" />
+        <activity android:name=".TRESenRaya.tresEnRaya_Nombres" android:screenOrientation="portrait" />
+        <activity android:name=".TRESenRaya.tresEnRaya_jugar" android:screenOrientation="portrait" />
+        <activity android:name=".Sudoku.sudoku_jugar" android:screenOrientation="portrait" />
+        <activity android:name=".Brisca.brisca_jugar" android:screenOrientation="portrait" />
+        <activity android:name=".Ahorcado.DosJugadores" android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity" android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Ahorcado.ElegirTematica" />
-        <activity android:name=".ElegirJuego" />
+        <activity android:name=".Ahorcado.ElegirTematica" android:screenOrientation="portrait" />
+        <activity android:name=".ElegirJuego" android:screenOrientation="portrait" />
     </application>
 
 </manifest>
