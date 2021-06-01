@@ -116,4 +116,18 @@ public class tresEnRaya_Nombres extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (vv3enRaya!=null){
+            vv3enRaya.start();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        vv3enRaya.pause();
+    }
 }
