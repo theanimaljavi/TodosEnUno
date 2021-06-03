@@ -485,4 +485,6 @@ public class parejas_fragment_facil extends Fragment {
             }
         }
     }
+
+
 }

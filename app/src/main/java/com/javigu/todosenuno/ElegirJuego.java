@@ -37,6 +37,8 @@ public class ElegirJuego extends AppCompatActivity {
         ib3enRaya = findViewById(R.id.ib3enRaya);
         ibParejas = findViewById(R.id.ibParejasPerfectas);
 
+        //ocultar el ActionBar
+        getSupportActionBar().hide();
 
         //navegar entre fragments al selecciona juego
         ibAhorcado.setOnClickListener(new View.OnClickListener() {

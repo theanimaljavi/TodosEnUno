@@ -1,20 +1,29 @@
 package com.javigu.todosenuno.ParejasPerfectas;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.javigu.todosenuno.ElegirJuego;
 import com.javigu.todosenuno.R;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -739,5 +748,48 @@ public class parejas_fragment_normal extends Fragment {
                 ib12.setEnabled(false);
             }
         }
+    }
+
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull @NotNull Menu menu, @NonNull @NotNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        //Inflador del menú
+        MenuInflater infladorMenu = getActivity().getMenuInflater();
+        //Asociar el menu al menu_busqueda.xml
+        infladorMenu.inflate(R.menu.menu_contextual, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        switch (item.getItemId()){
+            //ELEGIRJUEGO
+            case R.id.elegirjuego:
+                Intent intent = new Intent (getContext(), ElegirJuego.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.salir:
+                builder = new AlertDialog.Builder(getContext());
+                builder.setTitle("¿Desea salir de la aplicación?");
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        System.exit(0);
+                    }
+                });
+                builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                //mostrar alert dialog
+                builder.show();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
